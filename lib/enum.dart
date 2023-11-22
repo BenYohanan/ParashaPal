@@ -1,0 +1,1 @@
+enum NavBarMenuState { home, blessings, songs, festivals}
