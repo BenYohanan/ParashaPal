@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/models/prayer.dart';
-import 'package:pocket_siddur/screens/prayers/prayer_page.dart';
+import 'package:pocket_siddur/screens/prayers/prayerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/size_config.dart';
 
@@ -34,7 +34,7 @@ class PrayerList extends StatelessWidget {
         fade: 0.5,
         pagination: SwiperCustomPagination(
           builder: (context, config) {
-            Color activeColor = mediumYellow;
+            Color activeColor = transparentYellow;
             Color color = Colors.grey.withOpacity(.3);
             double size = 10.0;
             double space = 5.0;

@@ -35,7 +35,7 @@ class WeeklyParashah extends StatelessWidget {
                     right: 8.0,
                   ),
                   width: getProportionateScreenWidth(3),
-                  color: mediumYellow,
+                  color: transparentYellow,
                 ),
               ),
               Container(
@@ -106,8 +106,8 @@ class WeeklyParashah extends StatelessWidget {
                   Text(
                     parasha!,
                     style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: getProportionateScreenHeight(25),
+                      color: Colors.black45,
+                      fontSize: getProportionateScreenHeight(20),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -128,14 +128,21 @@ class WeeklyParashah extends StatelessWidget {
           height: getProportionateScreenHeight(10),
         ),
         Container(
-          padding: EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
-          height: getProportionateScreenHeight(100),
+          padding: EdgeInsets.only(
+            top: 16.0,
+            right: 16.0,
+            left: 16.0,
+          ),
+          height: getProportionateScreenHeight(110),
           width: getProportionateScreenWidth(300),
           decoration: BoxDecoration(
             color: transparentYellow,
             boxShadow: [
               BoxShadow(
-                  color: Colors.white24, offset: Offset(0, 3), blurRadius: 10.0)
+                color: const Color.fromARGB(255, 81, 78, 78),
+                offset: Offset(0, 3),
+                blurRadius: 10.0,
+              )
             ],
             borderRadius: BorderRadius.circular(9.0),
           ),
@@ -144,7 +151,7 @@ class WeeklyParashah extends StatelessWidget {
               Text(
                 'Weekly Reading',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: getProportionateScreenHeight(18),
                   fontWeight: FontWeight.w900,
                 ),
@@ -180,7 +187,7 @@ class WeeklyParashah extends StatelessWidget {
           TextSpan(
             text: title,
             style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white,
               fontSize: getProportionateScreenHeight(17),
               fontWeight: FontWeight.bold,
             ),
@@ -188,7 +195,7 @@ class WeeklyParashah extends StatelessWidget {
           TextSpan(
             text: reading,
             style: TextStyle(
-              color: Colors.white60,
+              color: Colors.white,
               fontSize: getProportionateScreenHeight(16),
             ),
           ),

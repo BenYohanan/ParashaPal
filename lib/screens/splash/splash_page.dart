@@ -5,7 +5,7 @@ import 'intro_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen>
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
     SizeConfig().init(context);
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromRGBO(247, 201, 129, 0.694),
+        color: Color.fromRGBO(9, 65, 143, 0.678),
         image: DecorationImage(
           image: AssetImage(
             'assets/micha.png',

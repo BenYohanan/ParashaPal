@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/screens/home/home.dart';
+import 'package:pocket_siddur/screens/siddur/siddurScreen.dart';
 
 import '../../../enum.dart';
 import '../../../size_config.dart';
+import '../../parasha/parashaScreen.dart';
 
 class CustomBottomBar extends StatefulWidget {
   const CustomBottomBar({
@@ -50,7 +52,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               height: 20,
               width: 20,
               color: NavBarMenuState.home == widget.selectedMenu
-                  ? darkYellow
+                  ? transparentYellow
                   : inActiveIconColor,
             ),
             label: 'Home',
@@ -60,40 +62,45 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             ),
           ),
           buildNavBarItem(
+              icon: SvgPicture.asset(
+                "assets/icons/category_icon.svg",
+                height: 20,
+                width: 20,
+                color: NavBarMenuState.blessings == widget.selectedMenu
+                    ? darkGrey
+                    : inActiveIconColor,
+              ),
+              label: 'Blessings',
+              onTap: () {}),
+          buildNavBarItem(
             icon: SvgPicture.asset(
-              "assets/icons/category_icon.svg",
+              "assets/icons/jewish-candles.svg",
               height: 20,
               width: 20,
-              color: NavBarMenuState.blessings == widget.selectedMenu
-                  ? darkYellow
+              color: NavBarMenuState.siddur == widget.selectedMenu
+                  ? darkGrey
                   : inActiveIconColor,
             ),
-            label: 'Blessings',
-            onTap: () {},
+            label: 'Siddur',
+            onTap: () => Navigator.pushNamed(
+              context,
+              SiddurScreen.routeName,
+            ),
           ),
           buildNavBarItem(
             icon: SvgPicture.asset(
-              "assets/icons/music.svg",
+              "assets/icons/jewish-faith.svg",
               height: 20,
               width: 20,
-              color: NavBarMenuState.songs == widget.selectedMenu
-                  ? darkYellow
+              color: NavBarMenuState.parasha == widget.selectedMenu
+                  ? darkGrey
                   : inActiveIconColor,
             ),
-            label: 'Tehillim',
-            onTap: () {},
-          ),
-          buildNavBarItem(
-            icon: SvgPicture.asset(
-              "assets/icons/events.svg",
-              height: 20,
-              width: 20,
-              color: NavBarMenuState.festivals == widget.selectedMenu
-                  ? darkYellow
-                  : inActiveIconColor,
+            label: 'Parashot',
+            onTap: () => Navigator.pushNamed(
+              context,
+              ParaShaScreen.routeName,
             ),
-            label: 'Festivals',
-            onTap: () {},
           ),
         ],
       ),

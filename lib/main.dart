@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:pocket_siddur/provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'routes.dart';
@@ -7,8 +6,6 @@ import 'screens/splash/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocationService().initialize();
-  Location.instance.requestPermission();
   runApp(
     const MyApp(),
   );

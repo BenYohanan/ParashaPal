@@ -3,10 +3,11 @@ import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/custom_background.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/enum.dart';
-import 'package:pocket_siddur/models/parashaAndShabbathService.dart';
+import 'package:pocket_siddur/models/parasha.dart';
 import 'package:pocket_siddur/provider/provider.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 import 'package:pocket_siddur/size_config.dart';
+import '../../models/prayer.dart';
 import 'components/custom_bottom_bar.dart';
 import 'components/prayerList.dart';
 import 'components/weeklyParasha.dart';
@@ -32,23 +33,35 @@ class MainPage extends StatelessWidget {
     var endTime =
         complexZmanimCalendar.getShabbosExitTime().add(Duration(hours: 1));
     var todaysEvent = translatedDateFormatter.getEvent(jewishCalendar);
+    var dayofWeek = translatedDateFormatter.formatDayOfWeek(jewishCalendar);
     if (todaysEvent.contains(parasha)) {
-      todaysEvent = "It\ns Yom Shabbath";
+      todaysEvent = "It's Yom Shabbath";
+    }
+    if (dayofWeek == "Fri" && todaysEvent.isEmpty) {
+      todaysEvent =
+          "It's Erev Shabbath ${parasha}, prepare to welcome the bride.";
     }
     String shabbathTime =
         '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
-    var foundParasha = parashaList.where((x) => x.contains(parasha)).first;
-    List<String> details = foundParasha.split('\n');
-    String torah = details[1].replaceAll('- Torah: ', '');
-    String haftarah = details[2].replaceAll('- Haftarah: ', '');
-    String britChadasha = details[3].replaceAll('- Brit Chadashah: ', '');
-    GetStoredDataFromSharedPreference().storeData("torah", torah);
-    GetStoredDataFromSharedPreference().storeData("haftarah", haftarah);
-    GetStoredDataFromSharedPreference().storeData("britChadasha", britChadasha);
+    var foundParasha = parashot.where((x) => x.name.contains(parasha)).first;
+    GetStoredDataFromSharedPreference().storeData(
+      "torah",
+      foundParasha.torah,
+    );
+    GetStoredDataFromSharedPreference().storeData(
+      "haftarah",
+      foundParasha.haftarah,
+    );
+    GetStoredDataFromSharedPreference().storeData(
+      "britChadasha",
+      foundParasha.britChadashah,
+    );
+    GetStoredDataFromSharedPreference().storeData(
+      "parasha",
+      foundParasha.name,
+    );
     GetStoredDataFromSharedPreference().storeData("todaysDate", today);
-    GetStoredDataFromSharedPreference().storeData("parasha", parasha);
     GetStoredDataFromSharedPreference().storeData("shabbathTime", shabbathTime);
-
     Widget todaysDate = Padding(
       padding: EdgeInsets.all(
         getProportionateScreenHeight(20),
@@ -61,11 +74,10 @@ class MainPage extends StatelessWidget {
             IntrinsicHeight(
               child: Container(
                 margin: const EdgeInsets.only(
-                  left: 16.0,
                   right: 8.0,
                 ),
                 width: 4,
-                color: mediumYellow,
+                color: transparentYellow,
               ),
             ),
             Center(
@@ -102,11 +114,11 @@ class MainPage extends StatelessWidget {
                 height: getProportionateScreenHeight(20),
               ),
               WeeklyParashah(
-                torahReading: torah,
-                hafTorah: haftarah,
-                britChadasha: britChadasha,
+                torahReading: foundParasha.torah,
+                hafTorah: foundParasha.haftarah,
+                britChadasha: foundParasha.britChadashah,
                 shabbathTime: shabbathTime,
-                parasha: parasha,
+                parasha: foundParasha.name,
                 todaysEvent: todaysEvent,
               ),
             ],

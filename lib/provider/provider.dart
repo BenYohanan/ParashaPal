@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:location/location.dart';
 
-class LocationService {
-  Location location = Location();
-  late LocationData _locData;
+// class LocationService {
+//   Location location = Location();
+//   late LocationData _locData;
 
-  Future<void> initialize() async {
-    bool serviceEnabled;
-    PermissionStatus permission;
-    LocationAccuracy.high;
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return;
-      }
-    }
-    permission = await location.hasPermission();
-    if (permission == PermissionStatus.denied) {
-      permission = await location.requestPermission();
-      if (permission != PermissionStatus.granted) {
-        return;
-      }
-    }
-  }
+//   Future<void> initialize() async {
+//     bool serviceEnabled;
+//     PermissionStatus permission;
+//     LocationAccuracy.high;
+//     serviceEnabled = await location.serviceEnabled();
+//     if (!serviceEnabled) {
+//       serviceEnabled = await location.requestService();
+//       if (!serviceEnabled) {
+//         return;
+//       }
+//     }
+//     permission = await location.hasPermission();
+//     if (permission == PermissionStatus.denied) {
+//       permission = await location.requestPermission();
+//       if (permission != PermissionStatus.granted) {
+//         return;
+//       }
+//     }
+//   }
 
-  Future<LocationData> getPosition() async {
-    _locData = await location.getLocation();
-    return _locData;
-  }
-}
+//   Future<LocationData> getPosition() async {
+//     _locData = await location.getLocation();
+//     return _locData;
+//   }
+// }
 
 class GetStoredDataFromSharedPreference {
   final storage = const FlutterSecureStorage();

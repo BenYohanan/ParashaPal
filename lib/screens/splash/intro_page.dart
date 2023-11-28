@@ -18,12 +18,7 @@ class _IntroPageState extends State<IntroPage> {
     return Material(
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[100],
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/background1.png',
-            ),
-          ),
+          color: const Color.fromARGB(255, 245, 245, 245),
         ),
         child: Stack(
           children: <Widget>[
@@ -37,125 +32,20 @@ class _IntroPageState extends State<IntroPage> {
               },
               controller: controller,
               children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Center(
-                      child: Image.asset(
-                        'assets/micha.png',
-                        height: 200,
-                        width: 200,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                      ),
-                      child: Text(
-                        'Perform Mitzvoth On The Goal',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: getProportionateScreenHeight(15),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16.0,
-                      ),
-                      child: Text(
-                        'Welcome to a seamless prayer experience, designed to bring the beauty of Jewish traditions to your fingertips.',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: getProportionateScreenHeight(13),
-                        ),
-                      ),
-                    ),
-                  ],
+                IntroPageWidget(
+                  'assets/micha.png',
+                  'Perform Mitzvoth On The Goal',
+                  'Welcome to a seamless prayer experience, designed to bring the beauty of Jewish traditions to your fingertips.',
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Center(
-                      child: Image.asset(
-                        'assets/torah.png',
-                        height: 200,
-                        width: 200,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                      ),
-                      child: Text(
-                        'Never Miss A Single Prayer',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: getProportionateScreenHeight(15),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16.0,
-                      ),
-                      child: Text(
-                        'Foster a deeper connection with your faith, all in one convenient place.',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color:  Colors.black38,
-                          fontSize: getProportionateScreenHeight(13),
-                        ),
-                      ),
-                    ),
-                  ],
+                IntroPageWidget(
+                  'assets/torah.png',
+                  'Never Miss A Single Prayer',
+                  'Foster a deeper connection with your faith, all in one convenient place.',
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Center(
-                      child: Image.asset(
-                        'assets/kiddush.png',
-                        height: 200,
-                        width: 200,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                      ),
-                      child: Text(
-                        'Tefillin',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: getProportionateScreenHeight(15),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16.0,
-                      ),
-                      child: Text(
-                        'Step into a world of spiritual connection with ParashaPal: Shabbat Messianic Siddur, your go-to Jewish prayer app.',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: getProportionateScreenHeight(13),
-                        ),
-                      ),
-                    ),
-                  ],
+                IntroPageWidget(
+                  'assets/kiddush.png',
+                  'Tefillin',
+                  'Step into a world of spiritual connection with Parasha Pal: Shabbat Messianic Siddur, your go-to Jewish prayer app.',
                 ),
               ],
             ),
@@ -178,7 +68,7 @@ class _IntroPageState extends State<IntroPage> {
                               color: Colors.grey,
                               width: 2,
                             ),
-                            color: pageIndex == 0 ? yellow : Colors.white,
+                            color: pageIndex == 0 ? darkGrey : Colors.white,
                           ),
                         ),
                         Container(
@@ -191,7 +81,7 @@ class _IntroPageState extends State<IntroPage> {
                               color: Colors.grey,
                               width: 2,
                             ),
-                            color: pageIndex == 1 ? yellow : Colors.white,
+                            color: pageIndex == 1 ? darkGrey : Colors.white,
                           ),
                         ),
                         Container(
@@ -204,7 +94,7 @@ class _IntroPageState extends State<IntroPage> {
                               color: Colors.grey,
                               width: 2,
                             ),
-                            color: pageIndex == 2 ? yellow : Colors.white,
+                            color: pageIndex == 2 ? darkGrey : Colors.white,
                           ),
                         )
                       ],
@@ -278,6 +168,49 @@ class _IntroPageState extends State<IntroPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Column IntroPageWidget(String image, String header, String content) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Center(
+          child: Image.asset(
+            image,
+            height: 200,
+            width: 200,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+          ),
+          child: Text(
+            header,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: getProportionateScreenHeight(15),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 16.0,
+          ),
+          child: Text(
+            content,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: getProportionateScreenHeight(14),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
