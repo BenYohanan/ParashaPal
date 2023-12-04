@@ -5,7 +5,7 @@ import 'package:pocket_siddur/size_config.dart';
 
 class IntroPage extends StatefulWidget {
   @override
-  _IntroPageState createState() => _IntroPageState();
+  State<IntroPage> createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {

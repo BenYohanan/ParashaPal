@@ -38,9 +38,7 @@ class WeeklyParashah extends StatelessWidget {
                   color: transparentYellow,
                 ),
               ),
-              Container(
-                width: getProportionateScreenWidth(350),
-                height: getProportionateScreenWidth(350),
+              Expanded(
                 child: CarouselSlider(
                   options: CarouselOptions(
                     enableInfiniteScroll: true,
@@ -50,20 +48,16 @@ class WeeklyParashah extends StatelessWidget {
                     viewportFraction: 1.0,
                   ),
                   items: [
-                    Container(
-                      width: getProportionateScreenWidth(350),
-                      height: getProportionateScreenWidth(350),
-                      child: Text(
-                        todaysEvent!.isEmpty
-                            ? "No special event today – take a moment for personal reflection."
-                            : todaysEvent!,
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: getProportionateScreenHeight(12),
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      todaysEvent!.isEmpty
+                          ? "No special event today – take a moment for personal reflection."
+                          : todaysEvent!,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: getProportionateScreenHeight(12),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -106,7 +100,7 @@ class WeeklyParashah extends StatelessWidget {
                   Text(
                     parasha!,
                     style: TextStyle(
-                      color: Colors.black45,
+                      color: Colors.white,
                       fontSize: getProportionateScreenHeight(20),
                       fontWeight: FontWeight.bold,
                     ),
