@@ -1,24 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:flutter/material.dart';
+import 'package:pocket_siddur/screens/home/home.dart';
 import 'package:pocket_siddur/size_config.dart';
+
+import '../../../models/parasha.dart';
+import '../../parasha/component/parashaSummary.dart';
 
 class WeeklyParashah extends StatelessWidget {
   WeeklyParashah(
       {Key? key,
-      required this.torahReading,
-      required this.hafTorah,
-      required this.britChadasha,
       required this.shabbathTime,
       required this.todaysEvent,
       required this.parasha})
       : super(key: key);
-  final String? parasha;
-  final String? torahReading;
-  final String? hafTorah;
-  final String? britChadasha;
+  final Parasha? parasha;
   final String? shabbathTime;
-  final String? todaysEvent;
+  final List<String> todaysEvent;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,11 +45,11 @@ class WeeklyParashah extends StatelessWidget {
                     height: getProportionateScreenHeight(50),
                     viewportFraction: 1.0,
                   ),
-                  items: [
-                    Text(
-                      todaysEvent!.isEmpty
+                  items: todaysEvent.map((event) {
+                    return Text(
+                      event.isEmpty
                           ? "No special event today – take a moment for personal reflection."
-                          : todaysEvent!,
+                          : event,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -59,10 +57,10 @@ class WeeklyParashah extends StatelessWidget {
                         fontSize: getProportionateScreenHeight(12),
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -84,38 +82,50 @@ class WeeklyParashah extends StatelessWidget {
             ],
             borderRadius: BorderRadius.circular(9.0),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Shabbath',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: getProportionateScreenHeight(20),
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) => ParashaSummaryPage(
+                    parasha: parasha!,
+                     route: MainPage.routeName,
                   ),
-                  Text(
-                    parasha!,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: getProportionateScreenHeight(20),
-                      fontWeight: FontWeight.bold,
+                ),
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'Shabbath',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: getProportionateScreenHeight(20),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    shabbathTime!,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: getProportionateScreenHeight(18),
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      parasha!.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: getProportionateScreenHeight(20),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      shabbathTime!,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: getProportionateScreenHeight(18),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(
@@ -155,15 +165,15 @@ class WeeklyParashah extends StatelessWidget {
                 children: [
                   DisplayReading(
                     "Torah: ",
-                    torahReading!,
+                    parasha!.torah,
                   ),
                   DisplayReading(
                     "Haf-Torah: ",
-                    hafTorah!,
+                    parasha!.haftarah,
                   ),
                   DisplayReading(
                     "Brit Chadasha: ",
-                    britChadasha!,
+                    parasha!.britChadashah,
                   ),
                 ],
               ),

@@ -6,8 +6,8 @@ import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String name;
-
-  CustomAppBar({required this.name});
+  final String? routeName;
+  CustomAppBar({required this.name, this.routeName});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +23,16 @@ class CustomAppBar extends StatelessWidget {
                 height: getProportionateScreenHeight(70),
                 width: getProportionateScreenWidth(40),
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    if (routeName != null) {
+                      Navigator.pushNamed(
+                        context,
+                        routeName!,
+                      );
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  },
                   child: SvgPicture.asset(
                     "assets/icons/Back Icon.svg",
                     color: darkGrey,

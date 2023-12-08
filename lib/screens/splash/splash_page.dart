@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 child: RichText(
                   text: TextSpan(
-                    text: 'Powered By Ben Yohanan',
+                    text: 'Techiya',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

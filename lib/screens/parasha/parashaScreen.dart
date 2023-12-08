@@ -7,6 +7,7 @@ import '../../models/parasha.dart';
 import '../home/components/customAppBar.dart';
 import '../home/components/custom_bottom_bar.dart';
 import 'component/parashaCard.dart';
+import 'component/parashaSummary.dart';
 
 class ParaShaScreen extends StatefulWidget {
   const ParaShaScreen({super.key});
@@ -40,8 +41,19 @@ class _ParaShaScreenState extends State<ParaShaScreen> {
                 padding: const EdgeInsets.symmetric(
                   vertical: 10,
                 ),
-                child: ParashaScreenCard(
-                  parasha: parashot[index],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => ParashaSummaryPage(
+                          parasha: parashot[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: ParashaScreenCard(
+                    parasha: parashot[index],
+                  ),
                 ),
               ),
             ),
