@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:location/location.dart';
+import 'package:pocket_siddur/models/parasha.dart';
 
-// class LocationService {
-//   Location location = Location();
-//   late LocationData _locData;
+class LocationService {
+  Location location = Location();
+  late LocationData _locData;
 
-//   Future<void> initialize() async {
-//     bool serviceEnabled;
-//     PermissionStatus permission;
-//     LocationAccuracy.high;
-//     serviceEnabled = await location.serviceEnabled();
-//     if (!serviceEnabled) {
-//       serviceEnabled = await location.requestService();
-//       if (!serviceEnabled) {
-//         return;
-//       }
-//     }
-//     permission = await location.hasPermission();
-//     if (permission == PermissionStatus.denied) {
-//       permission = await location.requestPermission();
-//       if (permission != PermissionStatus.granted) {
-//         return;
-//       }
-//     }
-//   }
+  Future<void> initialize() async {
+    bool serviceEnabled;
+    PermissionStatus permission;
+    LocationAccuracy.high;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+    permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission != PermissionStatus.granted) {
+        return;
+      }
+    }
+  }
 
-//   Future<LocationData> getPosition() async {
-//     _locData = await location.getLocation();
-//     return _locData;
-//   }
-// }
+  Future<LocationData> getPosition() async {
+    _locData = await location.getLocation();
+    return _locData;
+  }
+}
 
 class GetStoredDataFromSharedPreference {
   final storage = const FlutterSecureStorage();
@@ -52,33 +53,48 @@ class GetStoredDataFromSharedPreference {
 }
 
 class ProviderService extends ChangeNotifier {
-  String? latitude;
-  String? longitude;
-  String? locationName;
-  String? parasha;
-  String? torah;
-  String? halfTorah;
-  String? britChadahsha;
-  String? todaysHebrewDate;
+  late String latitude;
+  late String longitude;
+  late String locationName;
+  late List<String> events;
+  late Parasha parasha = Parasha(
+    name: '',
+    torah: '',
+    haftarah: '',
+    britChadashah: '',
+    summary: '',
+  );
+  late String lightingTime = "";
+  late String todaysFormattedDate = "";
+  int addedDays = 0;
+
   ProviderService() {
     latitude = "";
     longitude = "";
     locationName = "";
-    parasha = "";
-    torah = "";
-    halfTorah = "";
-    britChadahsha = "";
-    todaysHebrewDate = "";
+    parasha = Parasha(
+      name: "",
+      torah: "",
+      haftarah: "",
+      britChadashah: "",
+      summary: "",
+    );
+    events = [];
+    lightingTime = "";
+    todaysFormattedDate = "";
+    addedDays = 0;
     notifyListeners();
   }
-  String? get getLatitude => latitude;
-  String? get getLongitude => longitude;
-  String? get getParasha => parasha;
-  String? get getTorah => torah;
-  String? get getHaftorah => halfTorah;
-  String? get getBritChadasha => britChadahsha;
-  String? get getLocationName => locationName;
-  String? get getHodaysHebrewDate => todaysHebrewDate;
+
+  String get getLatitude => latitude;
+  String get getLongitude => longitude;
+  Parasha get getParasha => parasha;
+  String get getLocationName => locationName;
+  String get getTodaysFormattedDate => todaysFormattedDate;
+  String get getLightingTime => lightingTime;
+  List<String> get getEvents => events;
+  int get getAddedDays => addedDays;
+
   void updateLocation(String long, String lat, String name) {
     longitude = long;
     latitude = lat;
@@ -86,24 +102,33 @@ class ProviderService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateParashot(
-      String half, String tor, String brit, String par, String date) {
-    parasha = par;
-    halfTorah = half;
-    britChadahsha = brit;
-    torah = tor;
-    todaysHebrewDate = date;
+  void updateTodaysDate(String date) {
+    todaysFormattedDate = date;
     notifyListeners();
   }
 
-  void disposeLocation(
-    String long,
-    String lat,
-    String name,
-  ) {
-    longitude = "";
-    latitude = "";
-    locationName = "";
+  void updateParasha(Parasha parashaOfTheWeek) {
+    parasha = parashaOfTheWeek;
     notifyListeners();
+  }
+
+  void updateEventList(List<String> todaysEvents) {
+    events = todaysEvents;
+    notifyListeners();
+  }
+
+  void incrementAddedDays(int daysAdded) {
+    addedDays += daysAdded;
+    notifyListeners();
+  }
+
+  void decrementAddedDays(int daysAdded) {
+    addedDays -= daysAdded;
+    notifyListeners();
+  }
+
+  void dispose() {
+    // Cleanup resources if necessary
+    super.dispose();
   }
 }

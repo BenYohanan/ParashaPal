@@ -1810,7 +1810,7 @@ In summary, the Nitzavim Parasha emphasizes the renewal of the covenant, the con
   Parasha(
       name: 'Vayelech (And He Went)',
       torah: 'Deuteronomy 31:1 - 31:30',
-      haftarah: 'Hosea 14:2-10; Micah 7:18-20; Joel 2:15-27',
+      haftarah: 'Hosea 14:2-10; Micah 7:18-20',
       britChadashah: 'John 20:1-18',
       summary: '''
 Summary of Vayelech (Deuteronomy 31:1 - 31:30)
