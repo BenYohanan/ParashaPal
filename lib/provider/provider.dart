@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:location/location.dart';
 import 'package:pocket_siddur/models/parasha.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationService {
   Location location = Location();
@@ -33,6 +34,16 @@ class LocationService {
   }
 }
 
+Future<bool?> getReligiousChoiceValue() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  return preferences.getBool('isMessianic');
+}
+
+Future<bool> IsMessianic(bool value) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  return preferences.setBool('isMessianic', value);
+}
+
 class GetStoredDataFromSharedPreference {
   final storage = const FlutterSecureStorage();
   Future<String?> getStoredData(String key) async {
@@ -53,10 +64,11 @@ class GetStoredDataFromSharedPreference {
 }
 
 class ProviderService extends ChangeNotifier {
-  late String latitude;
-  late String longitude;
   late String locationName;
+  late double longitude;
+  late double latitude;
   late List<String> events;
+  late String location = "";
   late Parasha parasha = Parasha(
     name: '',
     torah: '',
@@ -67,11 +79,14 @@ class ProviderService extends ChangeNotifier {
   late String lightingTime = "";
   late String todaysFormattedDate = "";
   int addedDays = 0;
+  String? version;
+  String? playStoreVersion;
 
   ProviderService() {
-    latitude = "";
-    longitude = "";
     locationName = "";
+    longitude = 0.0;
+    latitude = 0.0;
+    location = "";
     parasha = Parasha(
       name: "",
       torah: "",
@@ -83,27 +98,36 @@ class ProviderService extends ChangeNotifier {
     lightingTime = "";
     todaysFormattedDate = "";
     addedDays = 0;
+    version = "";
+    playStoreVersion = "1.0.0+1";
     notifyListeners();
   }
 
-  String get getLatitude => latitude;
-  String get getLongitude => longitude;
   Parasha get getParasha => parasha;
   String get getLocationName => locationName;
+  double get getLatitude => latitude;
+  double get getLongitude => longitude;
   String get getTodaysFormattedDate => todaysFormattedDate;
   String get getLightingTime => lightingTime;
   List<String> get getEvents => events;
   int get getAddedDays => addedDays;
+  String? get getAppVersion => version;
+  String? get getPlayStoreAppVersion => playStoreVersion;
 
-  void updateLocation(String long, String lat, String name) {
-    longitude = long;
-    latitude = lat;
+  void updateLocation(String name, double lat, double long) {
     locationName = name;
+    longitude = lat;
+    longitude = long;
     notifyListeners();
   }
 
   void updateTodaysDate(String date) {
     todaysFormattedDate = date;
+    notifyListeners();
+  }
+
+  void updateLightingTime(String time) {
+    lightingTime = time;
     notifyListeners();
   }
 
@@ -124,6 +148,11 @@ class ProviderService extends ChangeNotifier {
 
   void decrementAddedDays(int daysAdded) {
     addedDays -= daysAdded;
+    notifyListeners();
+  }
+
+  void updateAppVersion(String appVersion) {
+    version = appVersion;
     notifyListeners();
   }
 

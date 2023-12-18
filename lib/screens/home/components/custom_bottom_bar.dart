@@ -52,7 +52,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               height: 20,
               width: 20,
               color: NavBarMenuState.home == widget.selectedMenu
-                  ? transparentYellow
+                  ? primaryColor
                   : inActiveIconColor,
             ),
             label: 'Home',

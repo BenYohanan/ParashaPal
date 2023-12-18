@@ -6,8 +6,13 @@ import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String name;
-  final String? routeName;
-  CustomAppBar({required this.name, this.routeName});
+  String? routeName;
+  bool? isFromHomePage;
+  CustomAppBar({
+    required this.name,
+    required this.isFromHomePage,
+    this.routeName,
+  });
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
                 width: getProportionateScreenWidth(40),
                 child: TextButton(
                   onPressed: () {
-                    if (routeName != null) {
+                    if (isFromHomePage!) {
                       Navigator.pushNamed(
                         context,
                         routeName!,

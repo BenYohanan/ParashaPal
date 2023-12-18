@@ -12,7 +12,7 @@ class MainBackground extends CustomPainter {
         Rect.fromLTRB(0, 0, width, height), Paint()..color = Colors.white);
     canvas.drawRect(
       Rect.fromLTRB(width - (width / 3), 0, width, height),
-      Paint()..color = transparentYellow,
+      Paint()..color = primaryColor,
     );
   }
 
@@ -21,6 +21,7 @@ class MainBackground extends CustomPainter {
     return false;
   }
 }
+
 class SiddurBackground extends CustomPainter {
   SiddurBackground();
 

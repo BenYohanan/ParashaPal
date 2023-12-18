@@ -1,58 +1,73 @@
-import 'package:intl/intl.dart';
+import 'dart:async';
+
+import 'package:in_app_update/in_app_update.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/custom_background.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/enum.dart';
 import 'package:pocket_siddur/models/parasha.dart';
-import 'package:kosher_dart/kosher_dart.dart';
+import 'package:pocket_siddur/provider/provider.dart';
 import 'package:pocket_siddur/size_config.dart';
+import 'package:provider/provider.dart';
 import '../../models/prayer.dart';
+
 import 'components/custom_bottom_bar.dart';
 import 'components/prayerList.dart';
 import 'components/weeklyParasha.dart';
 
-class MainPage extends StatelessWidget {
-  JewishDate jewishDate = JewishDate();
-  JewishCalendar jewishCalendar = JewishCalendar();
-  HebrewDateFormatter hebrewDateFormatter = HebrewDateFormatter();
-  ComplexZmanimCalendar complexZmanimCalendar = ComplexZmanimCalendar();
-  HebrewDateFormatter translatedDateFormatter = HebrewDateFormatter()
-    ..hebrewFormat = false;
+class MainPage extends StatefulWidget {
   static String routeName = "/mainPageScreen";
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
+  }
+
+  Future<void> checkForUpdate() async {
+    print('checking for update');
+    InAppUpdate.checkForUpdate().then((value) {
+      setState(() {
+        if (value.updateAvailability == UpdateAvailability.updateAvailable) {
+          print('update available');
+          update();
+        }
+      });
+    });
+  }
+
+  void update() async {
+    print('updating');
+    await InAppUpdate.startFlexibleUpdate();
+    InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  String lightingTime = "";
+  String today = "";
+  String location = "";
+  List<String> events = [];
+  late Parasha? parasha;
   @override
   Widget build(BuildContext context) {
-    var parasha = translatedDateFormatter.formatWeeklyParsha(
-      jewishCalendar,
-    );
-    var today = translatedDateFormatter.format(
-      jewishDate,
-    );
-    var startTime =
-        complexZmanimCalendar.getShabbosStartTime().add(Duration(hours: 1));
-    var endTime =
-        complexZmanimCalendar.getShabbosExitTime().add(Duration(hours: 1));
-    var todaysEvent = translatedDateFormatter.getEventsList(
-      jewishCalendar,
-      complexZmanimCalendar,
-    );
-    var dayofWeek = translatedDateFormatter.formatDayOfWeek(jewishCalendar);
-    if (todaysEvent.contains(parasha)) {
-      todaysEvent.add("It's Yom Shabbath");
-    }
-    if (dayofWeek == "Fri") {
-      todaysEvent.add(
-        "It's Erev Shabbath ${parasha}, prepare to welcome the bride.",
-      );
-    }
-    String shabbathTime =
-        '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
-    var foundParasha = parashot.where((x) => x.name.contains(parasha)).first;
+    final provider = Provider.of<ProviderService>(context, listen: false);
+    lightingTime = provider.getLightingTime;
+    events = provider.getEvents;
+    parasha = provider.getParasha;
+    today = provider.getTodaysFormattedDate;
+    location = provider.getLocationName;
     Widget todaysDate = Padding(
       padding: EdgeInsets.all(
         getProportionateScreenHeight(20),
       ),
       child: SizedBox(
-        height: getProportionateScreenHeight(20),
+        height: getProportionateScreenHeight(35),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -62,17 +77,33 @@ class MainPage extends StatelessWidget {
                   right: 8.0,
                 ),
                 width: 4,
-                color: transparentYellow,
+                color: primaryColor,
               ),
             ),
             Center(
-              child: Text(
-                "Today: ${DateFormat.yMMMd().format(DateTime.now())} | $today",
-                style: TextStyle(
-                  color: Colors.black45,
-                  fontSize: getProportionateScreenHeight(14),
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Today: ${today}",
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: getProportionateScreenHeight(13),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: getProportionateScreenHeight(2),
+                  ),
+                  Text(
+                    location,
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: getProportionateScreenHeight(12),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -99,9 +130,9 @@ class MainPage extends StatelessWidget {
                 height: getProportionateScreenHeight(20),
               ),
               WeeklyParashah(
-                shabbathTime: shabbathTime,
-                todaysEvent: todaysEvent,
-                parasha: foundParasha,
+                shabbathTime: lightingTime,
+                todaysEvent: events,
+                parasha: parasha,
               ),
             ],
           ),

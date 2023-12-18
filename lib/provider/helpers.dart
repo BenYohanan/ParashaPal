@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 import 'package:pocket_siddur/provider/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:yaml/yaml.dart';
 
 import '../models/parasha.dart';
 
 class Helper {
-  JewishDate jewishDate = JewishDate();
-  JewishCalendar jewishCalendar = JewishCalendar();
-  HebrewDateFormatter hebrewDateFormatter = HebrewDateFormatter();
-  ComplexZmanimCalendar complexZmanimCalendar = ComplexZmanimCalendar();
-  HebrewDateFormatter translatedDateFormatter = HebrewDateFormatter()
-    ..hebrewFormat = false;
+  void getAndSetLocation(BuildContext context) async {
+    final provider = Provider.of<ProviderService>(context, listen: false);
+    GeoLocation geoLocation = GeoLocation.setLocation(
+      provider.getLocationName,
+      provider.getLatitude,
+      provider.getLongitude,
+      DateTime.now().toUtc(),
+    );
+    ComplexZmanimCalendar.intGeoLocation(geoLocation);
 
-  void updateDate(BuildContext context) {
-    var provider = context.read<ProviderService>();
+    JewishDate jewishDate = JewishDate();
+    JewishCalendar jewishCalendar = JewishCalendar();
+    ComplexZmanimCalendar complexZmanimCalendar = ComplexZmanimCalendar()
+      ..setGeoLocation(geoLocation);
+    HebrewDateFormatter translatedDateFormatter = HebrewDateFormatter()
+      ..hebrewFormat = false;
+    //Store date in provider
     var addedDay = provider.addedDays;
     if (addedDay > 0) {
       jewishCalendar.setDate(DateTime.now().add(Duration(days: addedDay)));
       jewishDate.setDate(DateTime.now().add(Duration(days: addedDay)));
     }
     var todaysHebrewDate = translatedDateFormatter.format(jewishDate);
-    var gregorianDate =
-        DateFormat.yMMMd().format(DateTime.now().add(Duration(days: 7)));
-
+    var gregorianDate = DateFormat.yMMMd().format(DateTime.now());
+    //provider.updateLocation(locationName);
     provider.updateTodaysDate("$gregorianDate | $todaysHebrewDate");
-  }
 
-  void updateEvents(BuildContext context) {
-    var provider = context.read<ProviderService>();
-
+    //Store events
     var parasha = translatedDateFormatter.formatWeeklyParsha(jewishCalendar);
     var events = translatedDateFormatter.getEventsList(
       jewishCalendar,
@@ -42,38 +48,34 @@ class Helper {
       events.add("It's Yom Shabbath");
     }
     if (dayOfWeek == "Fri") {
-      provider.getEvents.add(
+      events.add(
         "It's Erev Shabbath ${parasha}, prepare to welcome the bride.",
       );
     }
+    if (events.isEmpty) {
+      events.add(
+          "No special event today – take a moment for personal reflection.");
+    }
     provider.updateEventList(events);
-  }
 
-  void updateLightingTimeAndParasha(BuildContext context) {
-    var provider = context.read<ProviderService>();
-
-    var startTime =
-        complexZmanimCalendar.getShabbosStartTime().add(Duration(hours: 1));
-    var endTime =
-        complexZmanimCalendar.getShabbosExitTime().add(Duration(hours: 1));
-
+    //Store lightingTime
+    var startTime = complexZmanimCalendar.getShabbosStartTime();
+    var endTime = complexZmanimCalendar.getShabbosExitTime();
     var lightingTime =
         '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
 
-    var parasha = translatedDateFormatter.formatWeeklyParsha(jewishCalendar);
     var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
-    provider.updateTodaysDate(lightingTime);
+    provider.updateLightingTime(lightingTime);
     provider.updateParasha(weeklyParasha);
   }
 
-  void fetchTodayData(BuildContext context) async {
-    try {
-      updateDate(context);
-      updateEvents(context);
-      updateLightingTimeAndParasha(context);
-    } catch (e) {
-      print('Error fetching location: $e');
-      // Handle errors here
-    }
+  Future<String> getVersionFromPubspec(BuildContext context) async {
+    final String pubspecYaml = await rootBundle.loadString(
+      'pubspec.yaml',
+    );
+    final Map<dynamic, dynamic> yamlMap = loadYaml(
+      pubspecYaml,
+    );
+    return yamlMap['version'];
   }
 }

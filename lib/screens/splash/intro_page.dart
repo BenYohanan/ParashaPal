@@ -3,6 +3,8 @@ import 'package:pocket_siddur/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/size_config.dart';
 
+import '../../provider/helpers.dart';
+
 class IntroPage extends StatefulWidget {
   @override
   State<IntroPage> createState() => _IntroPageState();
@@ -11,7 +13,6 @@ class IntroPage extends StatefulWidget {
 class _IntroPageState extends State<IntroPage> {
   PageController controller = PageController();
   int pageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -114,6 +115,7 @@ class _IntroPageState extends State<IntroPage> {
                               ),
                             ),
                             onPressed: () {
+                               Helper().getAndSetLocation(context);
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder: (context) => MainPage(),
@@ -152,6 +154,7 @@ class _IntroPageState extends State<IntroPage> {
                                   ),
                                 ),
                                 onPressed: () {
+                                   Helper().getAndSetLocation(context);
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (context) => MainPage(),

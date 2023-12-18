@@ -27,6 +27,7 @@ class _ParaShaScreenState extends State<ParaShaScreen> {
         ),
         child: CustomAppBar(
           name: "Parashot",
+          isFromHomePage: false,
         ),
       ),
       body: CustomPaint(
@@ -47,6 +48,8 @@ class _ParaShaScreenState extends State<ParaShaScreen> {
                       MaterialPageRoute(
                         builder: (_) => ParashaSummaryPage(
                           parasha: parashot[index],
+                          isFromHomepage: true,
+                          route: ParaShaScreen.routeName,
                         ),
                       ),
                     );

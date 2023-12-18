@@ -27,7 +27,7 @@ def keystoreProperties = new Properties()
        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
    }
 android {
-    namespace "com.example.pocket_siddur"
+    namespace "parashapalapp.com.pocket_siddur"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

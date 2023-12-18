@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../size_config.dart';
 import 'intro_page.dart';
 
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 4000),
+      duration: Duration(milliseconds: 7000),
       vsync: this,
     );
     opacity = Tween<double>(begin: 1.0, end: 0.0).animate(controller)

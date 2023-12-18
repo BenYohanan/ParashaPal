@@ -34,7 +34,7 @@ class PrayerList extends StatelessWidget {
         fade: 0.5,
         pagination: SwiperCustomPagination(
           builder: (context, config) {
-            Color activeColor = transparentYellow;
+            Color activeColor = primaryColor;
             Color color = Colors.grey.withOpacity(.3);
             double size = 10.0;
             double space = 5.0;

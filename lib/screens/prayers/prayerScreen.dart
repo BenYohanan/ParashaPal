@@ -203,6 +203,7 @@ class _PrayerPageState extends State<PrayerPage> {
         ),
         child: CustomAppBar(
           name: widget.prayer.time,
+          isFromHomePage: false,
         ),
       ),
       body: GestureDetector(

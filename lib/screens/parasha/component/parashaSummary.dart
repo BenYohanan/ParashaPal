@@ -10,8 +10,13 @@ import '../../home/components/custom_bottom_bar.dart';
 
 class ParashaSummaryPage extends StatefulWidget {
   final Parasha parasha;
+  bool? isFromHomepage;
   final String? route;
-  ParashaSummaryPage({required this.parasha, this.route});
+  ParashaSummaryPage({
+    required this.parasha,
+    this.isFromHomepage,
+    this.route,
+  });
 
   @override
   State<ParashaSummaryPage> createState() => _ParashaSummaryPageState();
@@ -132,6 +137,7 @@ class _ParashaSummaryPageState extends State<ParashaSummaryPage> {
         ),
         child: CustomAppBar(
           name: widget.parasha.name,
+          isFromHomePage: widget.isFromHomepage,
           routeName: widget.route,
         ),
       ),

@@ -26,6 +26,7 @@ class _SiddurScreenState extends State<SiddurScreen> {
         ),
         child: CustomAppBar(
           name: "Shabbath Siddur",
+          isFromHomePage: false,
         ),
       ),
       body: CustomPaint(

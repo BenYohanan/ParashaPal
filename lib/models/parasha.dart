@@ -12,8 +12,33 @@ class Parasha {
     required this.britChadashah,
     this.summary,
   });
+
+  // Parasha.fromSharedPreferences({
+  //   required this.name,
+  //   required this.torah,
+  //   required this.haftarah,
+  //   required this.britChadashah,
+  //   this.summary,
+  //   bool? isMessianic = true,
+  // }) {
+  //   if (!isMessianic!) {
+  //     summary = summary
+  //         ?.replaceAll('Yahweh', 'G-d')
+  //         .replaceAll('Yahshua', 'Jesus Christ');
+  //   }
+  // }
 }
 
+// List<Parasha> updatedParashot = parashot
+//     .map((parasha) => Parasha.fromSharedPreferences(
+//           name: parasha.name,
+//           torah: parasha.torah,
+//           haftarah: parasha.haftarah,
+//           britChadashah: parasha.britChadashah,
+//           summary: parasha.summary,
+//           isMessianic: messianic,
+//         ))
+//     .toList();
 List<Parasha> parashot = [
   Parasha(
       name: 'Bereshit (In the Beginning)',

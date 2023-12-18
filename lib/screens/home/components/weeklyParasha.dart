@@ -33,7 +33,7 @@ class WeeklyParashah extends StatelessWidget {
                     right: 8.0,
                   ),
                   width: getProportionateScreenWidth(3),
-                  color: transparentYellow,
+                  color: primaryColor,
                 ),
               ),
               Expanded(
@@ -47,9 +47,7 @@ class WeeklyParashah extends StatelessWidget {
                   ),
                   items: todaysEvent.map((event) {
                     return Text(
-                      event.isEmpty
-                          ? "No special event today – take a moment for personal reflection."
-                          : event,
+                      event,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -72,7 +70,7 @@ class WeeklyParashah extends StatelessWidget {
           height: getProportionateScreenHeight(100),
           width: getProportionateScreenWidth(300),
           decoration: BoxDecoration(
-            color: transparentYellow,
+            color: primaryColor,
             boxShadow: [
               BoxShadow(
                 color: Colors.white24,
@@ -88,7 +86,8 @@ class WeeklyParashah extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => ParashaSummaryPage(
                     parasha: parasha!,
-                     route: MainPage.routeName,
+                    isFromHomepage: true,
+                    route: MainPage.routeName,
                   ),
                 ),
               );
@@ -110,7 +109,7 @@ class WeeklyParashah extends StatelessWidget {
                       parasha!.name,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: getProportionateScreenHeight(20),
+                        fontSize: getProportionateScreenHeight(18),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -118,7 +117,7 @@ class WeeklyParashah extends StatelessWidget {
                       shabbathTime!,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: getProportionateScreenHeight(18),
+                        fontSize: getProportionateScreenHeight(16),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -140,7 +139,7 @@ class WeeklyParashah extends StatelessWidget {
           height: getProportionateScreenHeight(110),
           width: getProportionateScreenWidth(300),
           decoration: BoxDecoration(
-            color: transparentYellow,
+            color: primaryColor,
             boxShadow: [
               BoxShadow(
                 color: const Color.fromARGB(255, 81, 78, 78),
@@ -168,7 +167,7 @@ class WeeklyParashah extends StatelessWidget {
                     parasha!.torah,
                   ),
                   DisplayReading(
-                    "Haf-Torah: ",
+                    "Haftarah: ",
                     parasha!.haftarah,
                   ),
                   DisplayReading(

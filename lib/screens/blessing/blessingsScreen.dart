@@ -24,6 +24,7 @@ class _BlessingsScreenState extends State<BlessingsScreen> {
         ),
         child: CustomAppBar(
           name: "Blessings",
+          isFromHomePage: false,
         ),
       ),
       body: CustomPaint(
