@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../provider/provider.dart';
+import '../helpers/location_service.dart';
 import '../size_config.dart';
 
 class promptUser {

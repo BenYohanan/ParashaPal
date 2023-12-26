@@ -17,7 +17,7 @@ class PrayerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getProportionateScreenHeight(300),
+      height: getProportionateScreenHeight(250),
       child: Swiper(
         itemCount: prayer.length,
         itemBuilder: (_, index) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Parasha {
   String name;
   String torah;
@@ -12,7 +14,28 @@ class Parasha {
     required this.britChadashah,
     this.summary,
   });
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'torah': torah,
+      'haftarah': haftarah,
+      'britChadashah': britChadashah,
+      'summary': summary,
+    };
+  }
 
+  factory Parasha.fromMap(Map<String, dynamic> map) {
+    return Parasha(
+      name: map['name'],
+      torah: map['torah'],
+      haftarah: map['haftarah'],
+      britChadashah: map['britChadashah'],
+      summary: map['summary'],
+    );
+  }
+  String toJson() => json.encode(toMap());
+  factory Parasha.fromJson(String source) =>
+      Parasha.fromMap(json.decode(source));
   // Parasha.fromSharedPreferences({
   //   required this.name,
   //   required this.torah,
@@ -400,7 +423,7 @@ In summary, the Vayigash parasha highlights the emotional reunion between Joseph
       name: 'Vayechi (And He Lived)',
       torah: 'Genesis 47:28 - 50:26',
       haftarah: 'I Kings 2:1-12',
-      britChadashah: 'John 19:38-42',
+      britChadashah: '1 Peter 1:3-9',
       summary: '''
 Summary of Vayechi (Genesis 47:28 - 50:26)
 
@@ -424,14 +447,14 @@ The haftarah portion from I Kings 2:1-12 features the final moments of David's l
 
 Brit Chadashah:
 
-The brit Chadashah (Renewed Testament) reading from John 19:38-42 describes the burial of Yahshua after his crucifixion, highlighting the parallel of dignified burials in biblical narratives.
+The brit Chadashah (Renewed Testament) reading from 1 Peter 1:3-9 describes where the apostle encouraged us to walk in "living hope," that is, in the full assurance that God is going to ultimately do good to us in the future.  This is not an empty wish for good things to come, but is based on the resurrection life of Yeshua the Mashiach from the dead.
 
 In summary, the Vayechi parasha concludes the book of Genesis with the deaths of Jacob and Joseph, leaving a legacy of promises, blessings, and prophecies for their descendants. The narrative also sets the stage for the next chapters of the biblical story.
 '''),
   Parasha(
       name: 'Shemot (Names)',
       torah: 'Exodus 1:1 - 6:1',
-      haftarah: 'Isaiah 27:6 - 28:13; 29:22-23',
+      haftarah: 'Isaiah 27:6 - 28:13',
       britChadashah: 'Matthew 2:13-23',
       summary: '''
 Summary of Shemot (Exodus 1:1 - 6:1)
@@ -648,7 +671,7 @@ In summary, the Yitro Parasha introduces the wise counsel of Jethro, the momento
   Parasha(
       name: 'Mishpatim (Laws)',
       torah: 'Exodus 21:1 - 24:18',
-      haftarah: 'Jeremiah 34:8-22; 33:25-26',
+      haftarah: 'Jeremiah 34:8-22',
       britChadashah: 'Matthew 5:38-42',
       summary: '''
 Summary of Mishpatim (Exodus 21:1 - 24:18)
@@ -931,7 +954,7 @@ In summary, the Vayikra Parasha focuses on the various offerings and sacrifices 
   Parasha(
       name: 'Tzav (Command)',
       torah: 'Leviticus 6:1 - 8:36',
-      haftarah: 'Jeremiah 7:21-8:3; 9:22-23',
+      haftarah: 'Jeremiah 7:21-8:3',
       britChadashah: 'Mark 7:31-8:38',
       summary: '''
 Summary of Tzav (Leviticus 6:1 - 8:36)
@@ -1503,7 +1526,7 @@ In summary, the Pinchas Parasha showcases Phinehas' zealous act, the daughters o
   Parasha(
       name: 'Matot (Tribes)',
       torah: 'Numbers 30:2 - 32:42',
-      haftarah: 'Jeremiah 2:4-28; 3:4',
+      haftarah: 'Jeremiah 2:4-28',
       britChadashah: 'Acts 18:1-18',
       summary: '''
 Summary of Matot (Numbers 30:2 - 32:42)
@@ -1533,7 +1556,7 @@ In summary, the Matot Parasha covers regulations regarding vows, the war against
   Parasha(
       name: 'Masei (Journeys)',
       torah: 'Numbers 33:1 - 36:13',
-      haftarah: 'Jeremiah 2:4-28 and 3:4',
+      haftarah: 'Jeremiah 2:4-28',
       britChadashah: 'Acts 18:1-18',
       summary: '''
 Summary of Masei (Numbers 33:1 - 36:13)
@@ -1835,7 +1858,7 @@ In summary, the Nitzavim Parasha emphasizes the renewal of the covenant, the con
   Parasha(
       name: 'Vayelech (And He Went)',
       torah: 'Deuteronomy 31:1 - 31:30',
-      haftarah: 'Hosea 14:2-10; Micah 7:18-20',
+      haftarah: 'Hosea 14:2-10',
       britChadashah: 'John 20:1-18',
       summary: '''
 Summary of Vayelech (Deuteronomy 31:1 - 31:30)
@@ -1987,7 +2010,7 @@ In the Brit Chadashah, the passage from 2 Peter addresses false prophets and the
   Parasha(
       name: 'Matot-Masei',
       torah: 'Numbers 30:2 - 36:13',
-      haftarah: 'Jeremiah 2:4-28; 3:4',
+      haftarah: 'Jeremiah 2:4-28',
       britChadashah: 'Acts 18:1-18',
       summary: '''
 Matot begins with laws regarding vows and oaths, emphasizing the importance of fulfilling one's commitments. The Parasha then recounts the Israelites' victory over the Midianites and the allocation of land on the east side of the Jordan to the tribes of Reuben and Gad. Additionally, members of the tribe of Manasseh request their inheritance on the east side.
@@ -2001,7 +2024,7 @@ In the Brit Chadashah, the passage from Acts 18 narrates Paul's experiences in C
   Parasha(
       name: 'Nitzavim-Vayeilech',
       torah: 'Deuteronomy 29:9 - 31:30',
-      haftarah: 'Hosea 14:2-10; Micah 7:18-20; Joel 2:15-27',
+      haftarah: 'Hosea 14:2-10',
       britChadashah: 'John 20:1-18',
       summary: '''
 Nitzavim emphasizes the covenant between Yahweh and the Israelites, reiterating the importance of obedience and faithfulness. Moses addresses the people, warning them of the consequences of turning away from Yahweh but also promising restoration upon repentance. The Parasha concludes with Moses passing on leadership to Joshua.

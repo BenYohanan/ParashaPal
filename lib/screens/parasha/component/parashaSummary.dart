@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/size_config.dart';
 
 import '../../../custom_background.dart';
@@ -55,28 +56,6 @@ class _ParashaSummaryPageState extends State<ParashaSummaryPage> {
     return prayerPages;
   }
 
-  void _goToPage(int page) {
-    _pageController.animateToPage(
-      page,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-    _restartTimer();
-  }
-
-  List<int> _getPageRange() {
-    int totalPage = descriptionPages.length;
-    int start = (currentPage ~/ 5) * 5;
-    int end = start + 5;
-    if (end > totalPage) {
-      end = totalPage;
-    }
-    return List.generate(
-      end - start,
-      (index) => start + index + 1,
-    );
-  }
-
   void _startTimer() {
     _timer?.cancel();
     _timer = Timer(Duration(seconds: 5), () {
@@ -130,6 +109,9 @@ class _ParashaSummaryPageState extends State<ParashaSummaryPage> {
 
   @override
   Widget build(BuildContext context) {
+    String message =
+        '${widget.parasha.summary}\n\n Thank you for reading, \n\n Download Parashah Pal at \n https://play.google.com/store/apps/details?id=parashapalapp.com.pocket_siddur';
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(
@@ -139,6 +121,9 @@ class _ParashaSummaryPageState extends State<ParashaSummaryPage> {
           name: widget.parasha.name,
           isFromHomePage: widget.isFromHomepage,
           routeName: widget.route,
+          shareMessage: message,
+          shareColor: darkGrey,
+          shareSubject: "Parasha Summary",
         ),
       ),
       body: GestureDetector(

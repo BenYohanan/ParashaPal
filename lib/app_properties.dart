@@ -1,3 +1,5 @@
+import 'package:canton_ui/config/themes/dark_theme/dark_color_palette.dart';
+import 'package:canton_ui/config/themes/light_theme/light_color_palette.dart';
 import 'package:flutter/material.dart';
 
 const Color yellow = Color.fromARGB(255, 8, 64, 219);
@@ -7,6 +9,7 @@ const Color primaryColor = Color.fromRGBO(75, 128, 233, 1);
 const Color buttonColor = Color.fromARGB(251, 87, 62, 62);
 const Color darkGrey = Color.fromARGB(255, 43, 42, 42);
 const Color cardColor = Color.fromARGB(189, 191, 191, 219);
+const Color white = Colors.white;
 
 const LinearGradient mainButton = LinearGradient(
   colors: [
@@ -25,4 +28,11 @@ const List<BoxShadow> shadow = [
 screenAwareSize(int size, BuildContext context) {
   double baseHeight = 640.0;
   return size * MediaQuery.of(context).size.height / baseHeight;
+}
+
+Color heartColor(BuildContext context) {
+  if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+    return CantonDarkColors.red[400]!;
+  }
+  return CantonColors.red[400]!;
 }

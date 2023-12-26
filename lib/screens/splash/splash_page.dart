@@ -1,30 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:intl/intl.dart';
+import 'package:kosher_dart/kosher_dart.dart';
+import 'package:pocket_siddur/helpers/home_screen_details.dart';
+import 'package:pocket_siddur/models/parasha.dart';
+import 'package:pocket_siddur/models/userLocation.dart';
+import '../../helpers/location_service.dart';
 import '../../size_config.dart';
 import 'intro_page.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late Animation<double> opacity;
   late AnimationController controller;
-
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 7000),
+      duration: Duration(
+        milliseconds: 10000,
+      ),
       vsync: this,
     );
-    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(controller)
-      ..addListener(() {
+    opacity = Tween<double>(begin: 1.0, end: 0.0).animate(controller);
+
+    // Move the addListener logic to initState
+    opacity.addListener(() {
+      if (mounted) {
         setState(() {});
-      });
+      }
+    });
+
     controller.forward().then((_) {
-      navigationPage();
+      if (mounted) {
+        navigationPage();
+      }
     });
   }
 
@@ -34,16 +50,10 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  void navigationPage() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => IntroPage(),
-      ),
-    );
-  }
-
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return Container(
       decoration: BoxDecoration(
         color: Color.fromRGBO(9, 65, 143, 0.678),
@@ -53,43 +63,161 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
       ),
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Align(
-                  child: Opacity(
-                    opacity: opacity.value,
-                    child: Image.asset(
-                      'assets/logo.png',
-                      height: getProportionateScreenHeight(200),
-                      width: getProportionateScreenHeight(200),
+      child: Scaffold(
+        body: FutureBuilder(
+          future: initializeCalendar(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              print('Navigating to IntroPage...');
+              navigationPage();
+            }
+            return AnimatedBuilder(
+              animation: controller,
+              builder: (context, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Align(
+                        child: Opacity(
+                          opacity: opacity.value,
+                          child: Image.asset(
+                            'assets/logo.png',
+                            height: getProportionateScreenHeight(200),
+                            width: getProportionateScreenHeight(200),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(
-                  getProportionateScreenHeight(
-                    2,
-                  ),
-                ),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Techiya',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
+                    Padding(
+                      padding: EdgeInsets.all(
+                        getProportionateScreenHeight(
+                          2,
+                        ),
+                      ),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Techiya',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            );
+          },
         ),
+      ),
+    );
+  }
+
+  Future<void> initializeCalendar() async {
+    try {
+      await getLocation();
+      updateHomeScreenDetails();
+    } catch (e, stackTrace) {
+      print('Error initializing calendar: $e\n$stackTrace');
+      await getLocation();
+    }
+  }
+
+  updateHomeScreenDetails() {
+    var provider = ref.read(providerServiceProvider.notifier);
+    GeoLocation geoLocation = GeoLocation.setLocation(
+      provider.getUserLocation.locationName!,
+      provider.getUserLocation.latitude!,
+      provider.getUserLocation.longitude!,
+      DateTime.now().toUtc(),
+    );
+    ComplexZmanimCalendar.intGeoLocation(geoLocation);
+
+    JewishDate jewishDate = JewishDate();
+    JewishCalendar jewishCalendar = JewishCalendar();
+    ComplexZmanimCalendar complexZmanimCalendar = ComplexZmanimCalendar()
+      ..setGeoLocation(geoLocation);
+    HebrewDateFormatter translatedDateFormatter = HebrewDateFormatter()
+      ..hebrewFormat = false;
+    //Store date in provider
+    var addedDay = provider.addedDays;
+    if (addedDay > 0) {
+      jewishCalendar.setDate(DateTime.now().add(Duration(days: addedDay)));
+      jewishDate.setDate(DateTime.now().add(Duration(days: addedDay)));
+    }
+    var todaysHebrewDate = translatedDateFormatter.format(jewishDate);
+    var gregorianDate = DateFormat.yMMMd().format(DateTime.now());
+    provider.updateTodaysDate("$gregorianDate | $todaysHebrewDate");
+
+    //Store events
+    var parasha = translatedDateFormatter.formatWeeklyParsha(jewishCalendar);
+    var events = translatedDateFormatter.getEventsList(
+      jewishCalendar,
+      complexZmanimCalendar,
+    );
+    var dayOfWeek = translatedDateFormatter.formatDayOfWeek(jewishCalendar);
+    if (events.contains(parasha)) {
+      events.add("It's Yom Shabbath");
+    }
+    if (dayOfWeek == "Fri") {
+      events.add(
+        "It's Erev Shabbath ${parasha}, prepare to welcome the bride.",
+      );
+    }
+    if (events.isEmpty) {
+      events.add(
+          "No special event today – take a moment for personal reflection.");
+    }
+    provider.updateEventList(events);
+
+    //Store lightingTime
+    var startTime = complexZmanimCalendar.getShabbosStartTime();
+    var endTime = complexZmanimCalendar.getShabbosExitTime();
+    var lightingTime =
+        '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
+
+    var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
+    provider.updateLightingTime(lightingTime);
+    provider.updateParasha(weeklyParasha);
+  }
+
+  Future<void> getLocation() async {
+    try {
+      var location = await LocationService().getPosition();
+
+      // Check if the widget is still mounted before updating the state
+      if (mounted) {
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          location.latitude!,
+          location.longitude!,
+        );
+        if (placemarks != null && placemarks.isNotEmpty) {
+          Placemark first = placemarks.first;
+          String locationName =
+              "${first.administrativeArea}, ${first.locality}, ${first.country}";
+          var userLocation = UserLocation(
+            locationName: locationName,
+            latitude: location.latitude,
+            longitude: location.longitude,
+          );
+          ref.read(providerServiceProvider.notifier).updateLocation(
+                userLocation,
+              );
+        }
+      }
+    } catch (e) {
+      // Handle exceptions if necessary
+      print('Error getting location: $e');
+    }
+  }
+
+  void navigationPage() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => IntroPage(),
       ),
     );
   }

@@ -1,106 +1,154 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:pocket_siddur/provider/provider.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
+import 'package:pocket_siddur/helpers/helpers.dart';
+import 'package:pocket_siddur/helpers/location_service.dart';
+import 'package:pocket_siddur/helpers/notificationService.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'routes.dart';
 import 'screens/splash/splash_page.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  LocationService().initialize();
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => ProviderService(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Future<void> getLocation(BuildContext context) async {
-    final provider = Provider.of<ProviderService>(context, listen: false);
-    var location = await LocationService().getPosition();
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-      location.latitude!,
-      location.longitude!,
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await initializeApp();
+    runApp(
+      ProviderScope(
+        child: MyApp(),
+      ),
     );
-    if (placemarks != null && placemarks.isNotEmpty) {
-      Placemark first = placemarks.first;
-      String locationName =
-          "${first.administrativeArea}, ${first.locality}, ${first.country}";
-      provider.updateLocation(
-        locationName,
-        location.latitude!,
-        location.longitude!,
-      );
-    }
+  }, (error, stack) async {
+    print('Error: $error\n$stack');
+  });
+}
+
+Future<void> initializeApp() async {
+  await LocationService().initialize();
+  await Location.instance.requestPermission();
+  await Hive.initFlutter();
+  await Hive.openBox('pocket_siddur');
+
+  final notificationService = NotificationService();
+  await NotificationService.initNotification(initSchedule: true);
+  await notificationService.requestNotificationPermissions();
+
+  listenNotification();
+  tz.initializeTimeZones();
+
+  // Schedule notifications
+  await _scheduleDailyNotifications(notificationService);
+}
+
+Random random = Random();
+
+void listenNotification() => NotificationService.onNotification;
+
+Future<void> _scheduleDailyNotifications(
+  NotificationService notificationService,
+) async {
+  int today = DateTime.now().day;
+  var helper = Helper();
+
+  // Schedule notification For every day
+  if (![7, 5, 6].contains(today)) {
+    String selectedDailyNotificationText =
+        helper.dailyNotificationTextOptions[random.nextInt(
+      helper.dailyNotificationTextOptions.length,
+    )];
+    await notificationService.scheduleDailyNotification(
+      id: 0,
+      dayOfWeek: 1,
+      title: 'Shalom Aleichem',
+      body: selectedDailyNotificationText,
+      payLoad: 'daily_reminder',
+    );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getLocation(context);
+  // Schedule notification For Shabbath Erev
+  if (today == 5) {
+    // Schedule notification at 9 AM
+    String selectedPreparationDayNotificationText =
+        helper.preparationDayNotificationTextOptions[random.nextInt(
+      helper.preparationDayNotificationTextOptions.length,
+    )];
+    await notificationService.scheduleNotification(
+      id: 1,
+      title: 'Preparation Day',
+      body: selectedPreparationDayNotificationText,
+      payLoad: 'friday_morning_reminder',
+    );
+
+    // Schedule notification at 5 PM
+    String selectedNotificationText =
+        helper.shabbathErevNotificationTextOptions[random.nextInt(
+      helper.shabbathErevNotificationTextOptions.length,
+    )];
+    await notificationService.scheduleNotification(
+      id: 2,
+      title: 'Shabbath Erev',
+      body: selectedNotificationText,
+      payLoad: 'friday_evening_reminder',
+    );
   }
 
+  // Schedule notification For Yom Shabbath
+  if (today == 6) {
+    String selectedShabbathDayNotificationText =
+        helper.shabbathDayNotificationTextOptions[random.nextInt(
+      helper.shabbathDayNotificationTextOptions.length,
+    )];
+    await notificationService.scheduleDailyNotification(
+      id: 3,
+      dayOfWeek: 6,
+      title: 'Yom Shabbath',
+      body: selectedShabbathDayNotificationText,
+      payLoad: 'shabbath_reminder',
+    );
+  }
+
+  // Schedule notification For Shavua Tov
+  if (today == 7) {
+    String selectedSundayNotificationText =
+        helper.sundayMorningNotificationTextOptions[random.nextInt(
+      helper.sundayMorningNotificationTextOptions.length,
+    )];
+    await notificationService.scheduleDailyNotification(
+      id: 4,
+      dayOfWeek: 7,
+      title: 'Shavua Tov',
+      body: selectedSundayNotificationText,
+      payLoad: 'shavua_tov_reminder',
+    );
+  }
+}
+
+class MyApp extends ConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Messianic Siddur',
       debugShowCheckedModeBanner: false,
-      navigatorObservers: <NavigatorObserver>[
-        MyRouteObserver(),
-      ],
       routes: routes,
+      home: SplashScreen(),
       theme: ThemeData(
         brightness: Brightness.light,
         canvasColor: Colors.transparent,
         primarySwatch: Colors.blue,
         fontFamily: "Montserrat",
       ),
-      home: SplashScreen(),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaleFactor: 1.0,
+          ),
+          child: child!,
+        );
+      },
     );
-  }
-}
-
-class MyRouteObserver extends RouteObserver {
-  void saveLastRoute(Route lastRoute) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('last_route', lastRoute.settings.name ?? "");
-  }
-
-  @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    saveLastRoute(route);
-    super.didPop(route, previousRoute);
-  }
-
-  @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    saveLastRoute(route);
-    super.didPush(route, previousRoute);
-  }
-
-  @override
-  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    saveLastRoute(route);
-    super.didRemove(route, previousRoute);
-  }
-
-  @override
-  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    saveLastRoute(newRoute!);
-    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 }

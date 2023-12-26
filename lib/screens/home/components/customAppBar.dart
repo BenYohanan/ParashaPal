@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pocket_siddur/app_properties.dart';
+import 'package:pocket_siddur/helpers/helpers.dart';
 
 import '../../../size_config.dart';
 
@@ -8,11 +9,16 @@ class CustomAppBar extends StatelessWidget {
   final String name;
   String? routeName;
   bool? isFromHomePage;
-  CustomAppBar({
-    required this.name,
-    required this.isFromHomePage,
-    this.routeName,
-  });
+  String? shareMessage;
+  String? shareSubject;
+  Color? shareColor;
+  CustomAppBar(
+      {required this.name,
+      required this.isFromHomePage,
+      this.routeName,
+      this.shareMessage,
+      this.shareColor,
+      this.shareSubject});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,6 +59,14 @@ class CustomAppBar extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              Spacer(),
+              if (shareMessage != null)
+                Helper().SharePrayerTime(
+                  context,
+                  shareMessage!,
+                  subject: shareSubject!,
+                  color: shareColor!,
+                )
             ],
           ),
         ),

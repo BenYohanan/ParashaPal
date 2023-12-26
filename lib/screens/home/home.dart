@@ -1,28 +1,28 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/custom_background.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/enum.dart';
-import 'package:pocket_siddur/models/parasha.dart';
-import 'package:pocket_siddur/provider/provider.dart';
+import 'package:pocket_siddur/screens/home/components/verseOfTheday.dart';
 import 'package:pocket_siddur/size_config.dart';
-import 'package:provider/provider.dart';
+import 'package:pocket_siddur/helpers/home_screen_details.dart';
 import '../../models/prayer.dart';
 
 import 'components/custom_bottom_bar.dart';
 import 'components/prayerList.dart';
 import 'components/weeklyParasha.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends ConsumerStatefulWidget {
   static String routeName = "/mainPageScreen";
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  ConsumerState<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends ConsumerState<MainPage> {
   @override
   void initState() {
     super.initState();
@@ -49,19 +49,11 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  String lightingTime = "";
-  String today = "";
-  String location = "";
-  List<String> events = [];
-  late Parasha? parasha;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProviderService>(context, listen: false);
-    lightingTime = provider.getLightingTime;
-    events = provider.getEvents;
-    parasha = provider.getParasha;
-    today = provider.getTodaysFormattedDate;
-    location = provider.getLocationName;
+    var provider = ref.read(providerServiceProvider.notifier);
+    var today = ref.watch(providerServiceProvider).getTodaysFormattedDate;
+    var location = provider.getUserLocation.locationName!;
     Widget todaysDate = Padding(
       padding: EdgeInsets.all(
         getProportionateScreenHeight(20),
@@ -85,7 +77,7 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Today: ${today}",
+                    today,
                     style: TextStyle(
                       color: Colors.black45,
                       fontSize: getProportionateScreenHeight(13),
@@ -117,23 +109,23 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             children: [
               SizedBox(
-                height: getProportionateScreenHeight(20),
+                height: getProportionateScreenHeight(5),
               ),
               todaysDate,
               SizedBox(
-                height: getProportionateScreenHeight(20),
+                height: getProportionateScreenHeight(5),
               ),
               PrayerList(
                 prayer: prayers,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(20),
+                height: getProportionateScreenHeight(5),
               ),
-              WeeklyParashah(
-                shabbathTime: lightingTime,
-                todaysEvent: events,
-                parasha: parasha,
+              VerseOfTheDayCard(),
+              SizedBox(
+                height: getProportionateScreenHeight(5),
               ),
+              WeeklyParashah(),
             ],
           ),
         ),

@@ -61,17 +61,6 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               MainPage.routeName,
             ),
           ),
-          // buildNavBarItem(
-          //     icon: SvgPicture.asset(
-          //       "assets/icons/category_icon.svg",
-          //       height: 20,
-          //       width: 20,
-          //       color: NavBarMenuState.blessings == widget.selectedMenu
-          //           ? darkGrey
-          //           : inActiveIconColor,
-          //     ),
-          //     label: 'Blessings',
-          //     onTap: () {}),
           buildNavBarItem(
             icon: SvgPicture.asset(
               "assets/icons/jewish-candles.svg",
@@ -102,6 +91,21 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               ParaShaScreen.routeName,
             ),
           ),
+          // buildNavBarItem(
+          //   icon: SvgPicture.asset(
+          //     "assets/icons/torah_scroll.svg",
+          //     height: 20,
+          //     width: 20,
+          //     color: NavBarMenuState.bible == widget.selectedMenu
+          //         ? darkGrey
+          //         : inActiveIconColor,
+          //   ),
+          //   label: 'Bible',
+          //   onTap: () => Navigator.pushNamed(
+          //     context,
+          //     BibleView.routeName,
+          //   ),
+          // ),
         ],
       ),
     );

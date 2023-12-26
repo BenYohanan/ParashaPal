@@ -1,21 +1,27 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pocket_siddur/app_properties.dart';
+import 'package:pocket_siddur/helpers/home_screen_details.dart';
+import 'package:pocket_siddur/helpers/helpers.dart';
 import 'package:pocket_siddur/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/size_config.dart';
 
-import '../../provider/helpers.dart';
-
-class IntroPage extends StatefulWidget {
+class IntroPage extends ConsumerStatefulWidget {
   @override
-  State<IntroPage> createState() => _IntroPageState();
+  ConsumerState<IntroPage> createState() => _IntroPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class _IntroPageState extends ConsumerState<IntroPage> {
   PageController controller = PageController();
   int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    var provider = ref.read(providerServiceProvider.notifier);
+    String locationName = provider.getUserLocation.locationName!;
+    if (locationName.isEmpty) {
+      Helper().updateHomeScreenDetails(provider);
+    }
     return Material(
       child: Container(
         decoration: BoxDecoration(
@@ -115,7 +121,6 @@ class _IntroPageState extends State<IntroPage> {
                               ),
                             ),
                             onPressed: () {
-                               Helper().getAndSetLocation(context);
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder: (context) => MainPage(),
@@ -154,7 +159,6 @@ class _IntroPageState extends State<IntroPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                   Helper().getAndSetLocation(context);
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (context) => MainPage(),

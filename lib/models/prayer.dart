@@ -31,6 +31,31 @@ LEADER AND CONGREGATION:
 Barukh YHWH ham’borakh !‘olam wa’ed.
 Bless YHWH who is blessed forever and ever.
 
+ON KINDLING THE LIGHTS, 
+Say:
+
+Hebrew  
+Barukh atah YHWH Elohenu melekh ha-olam, asher kidishahnu b’mitzvohtov, w’tziwahnu l’hiyoht or l’goyim, w’nathan lanu Yahshua Meh-shikhay-nu, ha orle-olahm. 
+
+ENGLISH
+Blessed are you, O Yahweh our Mighty One, Ruler of the Universe, who sanctified us by your commandments  and  commanded us to be a light for the nations, and gave us Yahshua our Messiah, the light of the world.
+
+HEBREW: Tehillim 95
+ L’chu n’raninah la-YHWH nariah l’tsur yishenu: N’kad’mah phanahw b’todah biz’mirot nariah lo: Kee El gadol YHWH umelek gadol al-kahl Elohim. Asher b’yado mech’k’rey arets w’to-afot harim to. Asher-lo hayam w’hu asahu w’yabeshet yadahw yatsaru: Bou nish’tachaweh w’nich’rahah nib’r’chah liphne- YHWH oshenu. Kee hu Elohenu wa-anachnu ahm marito w’tso.m ya hayom ihm-b’kolo tish’mahu. Al-tak’shu l’bab’chem kim’rabah k’yom masah bamid’bar: Asher nisuniy aboteychem b’chanuniy gahm rahu phahaliy: Ar’bahim shanah ahkut b’dor wa-omer ahm tohey lebab’hem w’hem loh yad’hu crachai: Asher-nish’bati b’apiy ihm-y--bohun el-m’iuchati. 
+
+ENGLISH: Psalm 95 
+1.	O come, let us sing unto Yahweh; let us make a joyful noise to the rock of our salvation. 
+2.	Let us come before his presence with thanksgiving, and make a joyful noise unto him with psalms. 
+3.	For Yahweh is a great El and a great King above all the Elohim.
+4.	In his hand are the deep places of the earth; the strength of the hills is his also. 
+5.	The sea is his, and he made it, and his hands formed the dry land.
+6.	O come, let us worship and bow down; let us kneel before Yahweh our maker. 
+7.	For he is our Elohim, and we are the people of his pasture and the sheep of his hand. Today, if you will hear his voice,
+8.	Harden not your heart, as in the provocation, in the day of temptation in the wilderness; 
+9.	when your fathers tempted me, proved me, and saw my work.
+1O. Forty years long was I grieved with this generation and said, it is a people that do err in their hearts, and they have not known my ways;   Unto whom I sware in my wrath that they should not enter into my rest.
+
+
 HEBREW:   Tehlim 96
 
 Shiru Ia- YHWH shir chadash: Shiru Ia- YHWH kahl-ha’arets. Shiru Ia- YHWH barachu sh’mo bas’ru miyom-l’yom y’shuahto: Sap’ru i bagoyim k’bodo b’kahl ha-amim niph’i’otahw. Kee gadol YHWH um’hulal mod norah hu alkahl- Elohim: Kee kahi-elohe ha- amim elilim wa-YHWH shamayim asah: Hod-w’hadar I’phanahw ohz w’tipheret b’mikad’sho. Habu Ia- YHWH mish’pichot amim habu IaYHWH kabod wahoz: Habu la-YHWH k’bod sh’mo sh’huminchah ubou I’chats’rotahw: Hish’tachawu Ia- YHWH b’had’rat- kodesh hilu mipanahw kahl ha’arets: lm’ru bagoyim YHWH malach al-tichon tebel bal-timoth yadin amirn b’mesharim: Yis’mechu hashamayim w’tagel ha’arets 
