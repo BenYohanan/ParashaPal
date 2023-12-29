@@ -129,7 +129,7 @@ class Helper {
     provider.updateParasha(weeklyParasha);
 
     var storedVerseOfTheDay = provider.getVerseOfTheDay;
-    if (storedVerseOfTheDay.message == null) {
+    if (storedVerseOfTheDay.message!.isEmpty) {
       //Get and update verse of the day
       List<String> _verses = Helper().bibleVerses;
       Random random = Random();

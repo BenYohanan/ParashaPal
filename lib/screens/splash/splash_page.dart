@@ -28,7 +28,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     initializeCalendar();
     controller = AnimationController(
       duration: Duration(
-        milliseconds: 7000,
+        milliseconds: 10000,
       ),
       vsync: this,
     );
