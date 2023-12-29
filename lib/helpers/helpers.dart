@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +8,7 @@ import 'package:kosher_dart/kosher_dart.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/helpers/home_screen_details_repository.dart';
 import 'package:pocket_siddur/models/parasha.dart';
+import 'package:pocket_siddur/models/userLocation.dart';
 import 'package:pocket_siddur/size_config.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:yaml/yaml.dart';
@@ -124,6 +127,25 @@ class Helper {
     var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
     provider.updateLightingTime(lightingTime);
     provider.updateParasha(weeklyParasha);
+
+    var storedVerseOfTheDay = provider.getVerseOfTheDay;
+    if (storedVerseOfTheDay.message == null) {
+      //Get and update verse of the day
+      List<String> _verses = Helper().bibleVerses;
+      Random random = Random();
+      var today = DateTime.now();
+      String contentOfVerse = _verses[random.nextInt(
+        _verses.length,
+      )];
+      List<String> parts = contentOfVerse.split('(');
+      String reference = parts.length > 1 ? parts[1].replaceAll(')', '') : '';
+      var verseModel = VerseOfTheDay(
+        message: parts[0],
+        verse: reference,
+        date: today,
+      );
+      provider.updateDailyVerse(verseModel);
+    }
   }
 
   List<String> preparationDayNotificationTextOptions = [

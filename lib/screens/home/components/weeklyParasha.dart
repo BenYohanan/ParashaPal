@@ -163,8 +163,15 @@ class _WeeklyParashahState extends ConsumerState<WeeklyParashah> {
               ),
               child: GestureDetector(
                 onTap: () {
-                  String message =
-                      'Check out this week\'s Shabbath information\n${provider.getTodaysFormattedDate} \n\nParasha: ${parasha.name}\nReadings - Torah: ${parasha.torah} \nHaftarah: ${parasha.haftarah}\nBrit-Chadasha: ${parasha.britChadashah}.\n\n Thank you for reading, \n\n Download Parashah Pal at \n https://play.google.com/store/apps/details?id=parashapalapp.com.pocket_siddur';
+                  var today = DateTime.now().weekday;
+                  var message;
+                  if (today == DateTime.friday) {
+                    message =
+                        'Thank Yahweh is Friday - #TYIF\n\nCheck out this week\'s Shabbath information\n${provider.getTodaysFormattedDate} \n\nParasha: ${parasha.name}\nReadings - Torah: ${parasha.torah} \nHaftarah: ${parasha.haftarah}\nBrit-Chadasha: ${parasha.britChadashah}.\n\n Thank you for studying, \n\n Download Parashah Pal at \n https://play.google.com/store/apps/details?id=parashapalapp.com.pocket_siddur';
+                  } else {
+                    message =
+                        'Check out this week\'s Shabbath information\n${provider.getTodaysFormattedDate} \n\nParasha: ${parasha.name}\nReadings - Torah: ${parasha.torah} \nHaftarah: ${parasha.haftarah}\nBrit-Chadasha: ${parasha.britChadashah}.\n\n Thank you for studying, \n\n Download Parashah Pal at \n https://play.google.com/store/apps/details?id=parashapalapp.com.pocket_siddur';
+                  }
                   Share.share(
                     message,
                     subject: 'Shabbath Information',
@@ -271,7 +278,7 @@ class _WeeklyParashahState extends ConsumerState<WeeklyParashah> {
             text: reading,
             style: TextStyle(
               color: Colors.white,
-              fontSize: getProportionateScreenHeight(16),
+              fontSize: getProportionateScreenHeight(14),
             ),
           ),
         ],

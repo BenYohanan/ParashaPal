@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:canton_ui/canton_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pocket_siddur/app_properties.dart';
-import 'package:pocket_siddur/helpers/helpers.dart';
+import 'package:pocket_siddur/helpers/home_screen_details.dart';
+import 'package:pocket_siddur/helpers/home_screen_details_repository.dart';
 import 'package:pocket_siddur/size_config.dart';
 
 class VerseOfTheDayCard extends ConsumerStatefulWidget {
@@ -12,11 +11,10 @@ class VerseOfTheDayCard extends ConsumerStatefulWidget {
 }
 
 class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
-  List<String> _verses = Helper().bibleVerses;
-  Random random = Random();
-  var verse = "";
+  DateTime lastUpdate = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    var provider = ref.read(providerServiceProvider.notifier);
     Color bgColor() {
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         return CantonDarkColors.gray[800]!;
@@ -47,11 +45,11 @@ class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
                     SizedBox(
                       height: getProportionateScreenHeight(5),
                     ),
-                    _body(context, bgColor()),
+                    _body(context, bgColor(), provider),
                     SizedBox(
                       height: getProportionateScreenHeight(5),
                     ),
-                    _bookChapterVerse(context),
+                    _bookChapterVerse(context, provider),
                   ],
                 ),
               ),
@@ -73,21 +71,7 @@ class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
     );
   }
 
-  Widget _body(BuildContext context, Color bgColor) {
-    String verseText() {
-      String contentOfVerse = _verses[random.nextInt(
-        _verses.length,
-      )];
-      List<String> parts = contentOfVerse.split('(');
-      String reference = parts.length > 1 ? parts[1].replaceAll(')', '') : '';
-      if (reference.isNotEmpty) {}
-      setState(() {
-        verse = reference;
-      });
-
-      return parts[0];
-    }
-
+  Widget _body(BuildContext context, Color bgColor, ProviderService provider) {
     return IntrinsicHeight(
       child: Row(
         children: [
@@ -101,9 +85,9 @@ class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
           const SizedBox(width: 17),
           Expanded(
             child: Text(
-              verseText(),
+              provider.getVerseOfTheDay.message!,
               style: TextStyle(
-                color: darkGrey,
+                color: Colors.black45,
                 fontSize: getProportionateScreenHeight(14),
                 fontWeight: FontWeight.w700,
               ),
@@ -115,11 +99,11 @@ class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
     );
   }
 
-  Widget _bookChapterVerse(BuildContext context) {
+  Widget _bookChapterVerse(BuildContext context, ProviderService provider) {
     return Text(
-      verse,
+      provider.getVerseOfTheDay.verse!,
       style: TextStyle(
-        color: darkGrey,
+        color: Colors.black54,
         fontSize: getProportionateScreenHeight(14),
         fontWeight: FontWeight.bold,
       ),

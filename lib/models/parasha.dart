@@ -389,7 +389,7 @@ In summary, the Miketz parasha highlights Joseph's ascent to power in Egypt, the
       name: 'Vayigash (And He Approached)',
       torah: 'Genesis 44:18 - 47:27',
       haftarah: 'Ezekiel 37:15-28',
-      britChadashah: 'Matthew 1:18-25',
+      britChadashah: ' Eph 2:1-10',
       summary: '''
 Summary of Vayigash (Genesis 44:18 - 47:27)
 
@@ -455,7 +455,7 @@ In summary, the Vayechi parasha concludes the book of Genesis with the deaths of
       name: 'Shemot (Names)',
       torah: 'Exodus 1:1 - 6:1',
       haftarah: 'Isaiah 27:6 - 28:13',
-      britChadashah: 'Matthew 2:13-23',
+      britChadashah: '1 Cor 14:18-25',
       summary: '''
 Summary of Shemot (Exodus 1:1 - 6:1)
 
@@ -491,7 +491,7 @@ In summary, the Shemot parasha introduces the oppression of the Israelites in Eg
       name: 'Va\'eira (And I Appeared)',
       torah: 'Exodus 6:2 - 9:35',
       haftarah: 'Ezekiel 28:25-29:21',
-      britChadashah: 'Luke 4:14-22',
+      britChadashah: 'Rom 9:14-33',
       summary: '''
 Summary of Va'eira (Exodus 6:2 - 9:35)
 

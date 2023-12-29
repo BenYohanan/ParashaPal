@@ -63,3 +63,33 @@ class PrayerTime {
   factory PrayerTime.fromJson(String source) =>
       PrayerTime.fromMap(json.decode(source));
 }
+
+class VerseOfTheDay {
+  String? verse;
+  String? message;
+  DateTime? date;
+
+  VerseOfTheDay({
+    this.verse,
+    this.message,
+    this.date,
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      'verse': verse,
+      'message': message,
+      'date': date,
+    };
+  }
+
+  factory VerseOfTheDay.fromMap(Map<String, dynamic> map) {
+    return VerseOfTheDay(
+      verse: map['verse'],
+      message: map['message'],
+      date: map['date'],
+    );
+  }
+  String toJson() => json.encode(toMap());
+  factory VerseOfTheDay.fromJson(String source) =>
+      VerseOfTheDay.fromMap(json.decode(source));
+}

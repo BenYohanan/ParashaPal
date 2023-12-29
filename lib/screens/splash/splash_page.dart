@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:kosher_dart/kosher_dart.dart';
+import 'package:pocket_siddur/helpers/helpers.dart';
 import 'package:pocket_siddur/helpers/home_screen_details.dart';
 import 'package:pocket_siddur/models/parasha.dart';
 import 'package:pocket_siddur/models/userLocation.dart';
@@ -22,9 +25,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   void initState() {
     super.initState();
+    initializeCalendar();
     controller = AnimationController(
       duration: Duration(
-        milliseconds: 10000,
+        milliseconds: 7000,
       ),
       vsync: this,
     );
@@ -64,53 +68,39 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         ),
       ),
       child: Scaffold(
-        body: FutureBuilder(
-          future: initializeCalendar(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              print('Navigating to IntroPage...');
-              navigationPage();
-            }
-            return AnimatedBuilder(
-              animation: controller,
-              builder: (context, child) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Align(
-                        child: Opacity(
-                          opacity: opacity.value,
-                          child: Image.asset(
-                            'assets/logo.png',
-                            height: getProportionateScreenHeight(200),
-                            width: getProportionateScreenHeight(200),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(
-                        getProportionateScreenHeight(
-                          2,
-                        ),
-                      ),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Techiya',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              },
-            );
-          },
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Align(
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: Image.asset(
+                    'assets/logo.png',
+                    height: getProportionateScreenHeight(200),
+                    width: getProportionateScreenHeight(200),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(
+                getProportionateScreenHeight(
+                  2,
+                ),
+              ),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Techiya',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -119,7 +109,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   Future<void> initializeCalendar() async {
     try {
       await getLocation();
-      updateHomeScreenDetails();
+      await updateHomeScreenDetails();
     } catch (e, stackTrace) {
       print('Error initializing calendar: $e\n$stackTrace');
       await getLocation();
@@ -182,6 +172,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
     provider.updateLightingTime(lightingTime);
     provider.updateParasha(weeklyParasha);
+
+    //Get and update verse of the day
+    List<String> _verses = Helper().bibleVerses;
+    Random random = Random();
+    var today = DateTime.now();
+    String contentOfVerse = _verses[random.nextInt(
+      _verses.length,
+    )];
+    List<String> parts = contentOfVerse.split('(');
+    String reference = parts.length > 1 ? parts[1].replaceAll(')', '') : '';
+    var verseModel = VerseOfTheDay(
+      message: parts[0],
+      verse: reference,
+      date: today,
+    );
+    provider.updateDailyVerse(verseModel);
   }
 
   Future<void> getLocation() async {

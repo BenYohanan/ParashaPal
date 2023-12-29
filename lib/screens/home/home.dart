@@ -6,6 +6,7 @@ import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/custom_background.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_siddur/enum.dart';
+import 'package:pocket_siddur/helpers/helpers.dart';
 import 'package:pocket_siddur/screens/home/components/verseOfTheday.dart';
 import 'package:pocket_siddur/size_config.dart';
 import 'package:pocket_siddur/helpers/home_screen_details.dart';
@@ -30,11 +31,9 @@ class _MainPageState extends ConsumerState<MainPage> {
   }
 
   Future<void> checkForUpdate() async {
-    print('checking for update');
     InAppUpdate.checkForUpdate().then((value) {
       setState(() {
         if (value.updateAvailability == UpdateAvailability.updateAvailable) {
-          print('update available');
           update();
         }
       });
@@ -42,7 +41,6 @@ class _MainPageState extends ConsumerState<MainPage> {
   }
 
   void update() async {
-    print('updating');
     await InAppUpdate.startFlexibleUpdate();
     InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
       print(e.toString());
@@ -53,7 +51,11 @@ class _MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     var provider = ref.read(providerServiceProvider.notifier);
     var today = ref.watch(providerServiceProvider).getTodaysFormattedDate;
-    var location = provider.getUserLocation.locationName!;
+    var location =
+        ref.watch(providerServiceProvider).getUserLocation.locationName!;
+    if (location.isEmpty) {
+      Helper().updateHomeScreenDetails(provider);
+    }
     Widget todaysDate = Padding(
       padding: EdgeInsets.all(
         getProportionateScreenHeight(20),

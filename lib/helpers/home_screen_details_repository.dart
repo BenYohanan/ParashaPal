@@ -30,6 +30,11 @@ class ProviderService extends ChangeNotifier {
   int addedDays = 0;
   String? version;
   String? playStoreVersion;
+  var verseOfTheDay = VerseOfTheDay(
+    message: '',
+    verse: '',
+    date: DateTime.parse('2023-01-01'),
+  );
 
   Parasha get getParasha => parasha;
   UserLocation get getUserLocation => _userCUrrentLocation;
@@ -40,6 +45,7 @@ class ProviderService extends ChangeNotifier {
   String? get getAppVersion => version;
   String? get getPlayStoreAppVersion => playStoreVersion;
   PrayerTime get getPrayerTimes => prayerTime;
+  VerseOfTheDay get getVerseOfTheDay => verseOfTheDay;
 
   void updateLocation(UserLocation location) async {
     final box = Hive.box('pocket_siddur');
@@ -47,6 +53,16 @@ class ProviderService extends ChangeNotifier {
     await box.put(
       'userLocation',
       location.toJson(),
+    );
+    notifyListeners();
+  }
+
+  void updateDailyVerse(VerseOfTheDay todaysVerse) async {
+    final box = Hive.box('pocket_siddur');
+    verseOfTheDay = todaysVerse;
+    await box.put(
+      'todaysVerse',
+      verseOfTheDay.toJson(),
     );
     notifyListeners();
   }
