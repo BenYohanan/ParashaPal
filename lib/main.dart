@@ -8,7 +8,6 @@ import 'package:pocket_siddur/helpers/notificationService.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'routes.dart';
 import 'screens/splash/splash_page.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
@@ -19,12 +18,10 @@ void main() async {
     await Hive.openBox('pocket_siddur');
 
     final notificationService = NotificationService();
-    await NotificationService.initNotification(initSchedule: true);
-    await notificationService.requestNotificationPermissions();
-    listenNotification();
-    tz.initializeTimeZones();
     // Schedule notifications
-    notificationService.scheduleNotifications();
+    await notificationService.initializeNotification();
+    await notificationService.requestNotificationPermissions();
+    await notificationService.scheduleNotifications();
     runApp(
       ProviderScope(
         child: MyApp(),
@@ -34,8 +31,6 @@ void main() async {
     print('Error: $error\n$stack');
   });
 }
-
-void listenNotification() => NotificationService.onNotification;
 
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);

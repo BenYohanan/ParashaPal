@@ -1,194 +1,164 @@
 import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cron/cron.dart';
+import 'package:pocket_siddur/app_properties.dart';
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_native_timezone_updated_gradle/flutter_native_timezone.dart';
 import 'package:pocket_siddur/helpers/helpers.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  static final notificationsPlugin = FlutterLocalNotificationsPlugin();
-  static final onNotification = BehaviorSubject<dynamic>();
-  static Future initNotification({bool initSchedule = true}) async {
-    const android = AndroidInitializationSettings(
-      'drawable/logo',
-    );
+  final cron = Cron();
+  var helper = Helper();
+  Random random = Random();
 
-    var settings = InitializationSettings(android: android);
-    await notificationsPlugin.initialize(settings,
-        onDidReceiveNotificationResponse: (payload) async {
-      onNotification.add(payload);
-    });
-    if (initSchedule) {
-      tz.initializeTimeZones();
-      final locationName = await FlutterNativeTimezone.getLocalTimezone();
-      tz.setLocalLocation(tz.getLocation(locationName));
+  Future<void> initializeNotification() async {
+    AwesomeNotifications().initialize(
+      'resource://drawable/logo',
+      [
+        NotificationChannel(
+            channelKey: 'daily_notification_channel',
+            channelName: 'Parashah Pal',
+            channelDescription: 'Daily Notification',
+            defaultColor: primaryColor,
+            ledColor: darkGrey,
+            playSound: true,
+            enableVibration: true,
+            importance: NotificationImportance.High),
+      ],
+    );
+  }
+
+  Future<void> requestNotificationPermissions() async {
+    bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isAllowed) {
+      await AwesomeNotifications().requestPermissionToSendNotifications();
     }
   }
 
-  Future requestNotificationPermissions() async {
-    await notificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-    AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-        notificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
-
-    await androidImplementation?.requestNotificationsPermission();
-  }
-
   Future<void> scheduleNotifications() async {
-    var helper = Helper();
-    var flutterLocalNotificationsPlugin =
-        NotificationService.notificationsPlugin;
-    Random random = Random();
     // Schedule notifications for Mondays (ID: 4)
     String selectedDailyNotificationTextMonday =
         helper.dailyNotificationTextOptions[random.nextInt(
       helper.dailyNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      4,
-      'Shalom Aleichem',
-      selectedDailyNotificationTextMonday,
-      _nextInstanceOfDay(9, 1),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 1'), () async {
+      await _scheduleNotification(
+        4,
+        'daily_notification_channel',
+        'Shalom Aleichem!',
+        selectedDailyNotificationTextMonday,
+      );
+    });
+
     // Schedule notifications for Tuesday (ID: 4)
     String selectedDailyNotificationTextTuesday =
         helper.dailyNotificationTextOptions[random.nextInt(
       helper.dailyNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      5,
-      'Shalom Aleichem',
-      selectedDailyNotificationTextTuesday,
-      _nextInstanceOfDay(9, 2),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 2'), () async {
+      await _scheduleNotification(
+        5,
+        'daily_notification_channel',
+        'Shalom Aleichem',
+        selectedDailyNotificationTextTuesday,
+      );
+    });
+
     // Schedule notifications for Wednesdays (ID: 5)
     String selectedDailyNotificationTextWednesdays =
         helper.dailyNotificationTextOptions[random.nextInt(
       helper.dailyNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      6,
-      'Shalom Aleichem',
-      selectedDailyNotificationTextWednesdays,
-      _nextInstanceOfDay(9, 3),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 3'), () async {
+      await _scheduleNotification(
+        6,
+        'daily_notification_channel',
+        'Shalom Aleichem',
+        selectedDailyNotificationTextWednesdays,
+      );
+    });
+
     // Schedule notifications for Thursdays (ID: 7)
     String selectedDailyNotificationTextThursdays =
         helper.dailyNotificationTextOptions[random.nextInt(
       helper.dailyNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      7,
-      'Shalom Aleichem',
-      selectedDailyNotificationTextThursdays,
-      _nextInstanceOfDay(9, 4),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 4'), () async {
+      await _scheduleNotification(
+        7,
+        'daily_notification_channel',
+        'Shalom Aleichem',
+        selectedDailyNotificationTextThursdays,
+      );
+    });
 
     // Schedule notifications for Fridays (ID: 0)
     String selectedPreparationDayNotificationText =
         helper.preparationDayNotificationTextOptions[random.nextInt(
       helper.preparationDayNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      0,
-      'Preparation Day',
-      selectedPreparationDayNotificationText,
-      _nextInstanceOfDay(9, 5),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 5'), () async {
+      await _scheduleNotification(
+        0,
+        'daily_notification_channel',
+        'Preparation Day',
+        selectedPreparationDayNotificationText,
+      );
+    });
     String selectedNotificationText =
         helper.shabbathErevNotificationTextOptions[random.nextInt(
       helper.shabbathErevNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      1,
-      'Shabbath Erev',
-      selectedNotificationText,
-      _nextInstanceOfDay(17, 5),
-    );
+    cron.schedule(Schedule.parse('0 17 * * 5'), () async {
+      await _scheduleNotification(
+        1,
+        'daily_notification_channel',
+        'Shabbath Erev',
+        selectedNotificationText,
+      );
+    });
 
     // Schedule notifications for Saturdays (ID: 2)
     String selectedShabbathDayNotificationText =
         helper.shabbathDayNotificationTextOptions[random.nextInt(
       helper.shabbathDayNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      2,
-      'Yom Shabbath',
-      selectedShabbathDayNotificationText,
-      _nextInstanceOfDay(9, 6),
-    );
+    cron.schedule(Schedule.parse('0 9 * * 6'), () async {
+      await _scheduleNotification(
+        2,
+        'daily_notification_channel',
+        'Yom Shabbath',
+        selectedShabbathDayNotificationText,
+      );
+    });
 
     // Schedule notifications for Sundays (ID: 3)
     String selectedSundayNotificationText =
         helper.sundayMorningNotificationTextOptions[random.nextInt(
       helper.sundayMorningNotificationTextOptions.length,
     )];
-    await _scheduleNotification(
-      flutterLocalNotificationsPlugin,
-      3,
-      'Shavua Tov',
-      selectedSundayNotificationText,
-      _nextInstanceOfDay(9, 7),
-    );
-  }
-
-  tz.TZDateTime _nextInstanceOfDay(int hour, int dayOfWeek) {
-    final now = tz.TZDateTime.now(tz.local);
-    var scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      dayOfWeek,
-      hour,
-      0,
-    );
-
-    return scheduledDate;
+    cron.schedule(Schedule.parse('0 9 * * 7'), () async {
+      await _scheduleNotification(
+        3,
+        'daily_notification_channel',
+        'Shavua Tov',
+        selectedSundayNotificationText,
+      );
+    });
   }
 
   Future<void> _scheduleNotification(
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
     int id,
+    String channelKey,
     String title,
     String body,
-    tz.TZDateTime scheduledDate,
   ) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      scheduledDate,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          'channel_id_$id',
-          'Channel $id',
-          channelDescription: 'Daily Notification',
-          importance: Importance.max,
-          playSound: true,
-          priority: Priority.high,
-        ),
-        iOS: DarwinNotificationDetails(),
-      ),
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dateAndTime,
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: id,
+          channelKey: channelKey,
+          title: title,
+          body: body,
+          notificationLayout: NotificationLayout.BigText),
     );
   }
 }

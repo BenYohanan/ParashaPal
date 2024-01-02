@@ -161,11 +161,11 @@ class Helper {
     "The warmth of Shabbath Erev is upon us. Prepare for a blessed and restful Shabbath.\n\n Shabbath Shalom From Parashah Pal",
   ];
   List<String> dailyNotificationTextOptions = [
-    "Start your week with inspiration! Explore the wisdom of the new Torah portion and find meaning in your prayers. Have a blessed day!",
-    "Good morning! Dive into the teachings of the Torah portion for today and enhance your prayer experience. Wishing you a thoughtful day!",
-    "Shalom! Take a moment to reflect on the Torah portion and connect with your prayers. May your day be filled with peace and understanding.",
+    "Start your week with inspiration! Explore the wisdom of the torah and find meaning in your prayers. Have a blessed day!",
+    "Good morning! Dive into the teachings of the torah for today and enhance your prayer experience and relationship. Wishing you a thoughtful day!",
+    "Take a moment to reflect on this weeks torah portion and connect with your prayers. May your day be filled with peace and understanding.",
     "Shalom! Begin your day by preparing for upcoming Shabbath. Delve into the Torah portion and embrace the beauty of your prayers. Enjoy a purposeful day",
-    "Almost there! Prepare for Shabbath by immersing yourself in the Torah portion and savoring the beauty of your prayers. Have a meaningful day!",
+    "Almost there! Start preparing for Shabbath by immersing yourself in the Torah portion and savoring the beauty of your prayers. Have a meaningful day!",
   ];
 
   List<String> shabbathDayNotificationTextOptions = [
