@@ -447,7 +447,7 @@ The haftarah portion from I Kings 2:1-12 features the final moments of David's l
 
 Brit Chadashah:
 
-The brit Chadashah (Renewed Testament) reading from 1 Peter 1:3-9 describes where the apostle encouraged us to walk in "living hope," that is, in the full assurance that God is going to ultimately do good to us in the future.  This is not an empty wish for good things to come, but is based on the resurrection life of Yeshua the Mashiach from the dead.
+The brit Chadashah (Renewed Testament) reading from 1 Peter 1:3-9 describes where the apostle encouraged us to walk in "living hope," that is, in the full assurance that Yahweh is going to ultimately do good to us in the future.  This is not an empty wish for good things to come, but is based on the resurrection life of Yahshua Ha-Mashiach from the dead.
 
 In summary, the Vayechi parasha concludes the book of Genesis with the deaths of Jacob and Joseph, leaving a legacy of promises, blessings, and prophecies for their descendants. The narrative also sets the stage for the next chapters of the biblical story.
 '''),
@@ -579,7 +579,7 @@ The Haftarah portion from Jeremiah 46:13-28 speaks of the judgment upon Egypt, e
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Luke 22:7-20 recounts the institution of the Lord's Supper by Yahshua during the Passover meal.
+The Brit Chadashah reading from Luke 22:7-20 recounts pesach celebration  by Yahshua during the Passover meal.
 
 In summary, the Bo Parasha narrates the culmination of the plagues, the institution of the Passover, the dramatic Exodus from Egypt, and Yahweh's provision for the Israelites in the wilderness.
 '''),
@@ -1519,7 +1519,7 @@ The Haftarah portion from Jeremiah 1:1-2:3 recounts Jeremiah's call as a prophet
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Matthew 26:1-30 includes the account of Yahshua's preparation for the Passover, the Last Supper, and the institution of the Lord's Supper. This significant event is a precursor to Yahshua's sacrifice for the redemption of humanity.
+The Brit Chadashah reading from Matthew 26:1-30 includes the account of Yahshua's preparation for the Passover, the Last Supper, and the institution of the Yahshua's memorial. This significant event is a precursor to Yahshua's sacrifice for the redemption of humanity.
 
 In summary, the Pinchas Parasha showcases Phinehas' zealous act, the daughters of Zelophehad's plea for inheritance, the appointment of Joshua, regulations concerning vows, and includes insights from the Haftarah and Brit Chadashah readings.
 '''),
@@ -1635,7 +1635,7 @@ Moses' Plea Denied: Moses recounts his plea to enter the Promised Land, which Ya
 
 Shema Yisrael - Hear, O Israel: One of the central teachings of Judaism, the Shema Yisrael, is reiterated. It declares the oneness of Yahweh and emphasizes the importance of loving Him with all one's heart, soul, and strength. Instructions are given to bind these words on the hands and between the eyes as a constant reminder.
 
-Warning Against Idolatry: Moses warns the Israelites against forgetting Yahweh once they enter the Promised Land and enjoying prosperity. They are reminded not to follow the gods of the nations they are displacing.
+Warning Against Idolatry: Moses warns the Israelites against forgetting Yahweh once they enter the Promised Land and enjoying prosperity. They are reminded not to follow the idoils of the nations they are displacing.
 
 Teaching for Future Generations: Instructions are provided for answering future generations' questions about the meaning of the commandments and the significance of Yahweh's deliverance from Egypt.
 
@@ -2019,7 +2019,7 @@ Masei provides a summary of the Israelites' journeys and encampments in the wild
 
 The Haftarah passages from Jeremiah lament Israel's departure from Yahweh and the consequences of idolatry. This aligns with the theme of faithfulness and commitment found in Matot.
 
-In the Brit Chadashah, the passage from Acts 18 narrates Paul's experiences in Corinth. It highlights Paul's dedication to spreading the message of YahShua (Jesus) despite challenges and opposition. This connects with the themes of commitment and perseverance seen in Matot-Masei.
+In the Brit Chadashah, the passage from Acts 18 narrates Paul's experiences in Corinth. It highlights Paul's dedication to spreading the message of YahShua despite challenges and opposition. This connects with the themes of commitment and perseverance seen in Matot-Masei.
 '''),
   Parasha(
       name: 'Nitzavim-Vayeilech',
