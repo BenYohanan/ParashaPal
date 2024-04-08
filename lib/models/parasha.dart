@@ -1027,7 +1027,7 @@ In summary, the Shemini Parasha highlights the consecration of the Tabernacle, t
       name: 'Tazria (She Conceives)',
       torah: 'Leviticus 12:1 - 13:59',
       haftarah: 'II Kings 4:42 - 5:19',
-      britChadashah: 'Luke 2:22-35',
+      britChadashah: 'Matthew 8:1–4, 11:2–6',
       summary: '''
 Summary of Tazria (Leviticus 12:1 - 13:59)
 
@@ -1047,19 +1047,19 @@ Leprosy in Clothing and Houses: The Parasha also addresses cases where leprosy a
 
 Haftarah:
 
-The Haftarah portion from 2 Kings 4:42 - 5:19 includes accounts of Elisha's miracles, such as the multiplication of loaves, the healing of Naaman's leprosy, and the recovery of a floating axe head.
+The Haftarah (II Kings 4:42 - 5:19) features stories of Elisha's miracles, including the healing of Naaman's leprosy, aligning with the theme of miraculous healing and purification found in Tazria
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Luke 2:22-35 recounts the presentation of the infant Yahshua at the Temple and the prophecy of Simeon, who recognizes Yahshua as the fulfillment of Yahweh's promises.
+The Brit Chadashah readings (Matthew 8:1–4, 11:2–6) reading for parashat Tazria includes reference to the two miracles that YahShua the Mashiach performed just as Elisha the prophet did in the Haftarah readings (namely the miracle of the feeding of the multitude from the five loaves of bread and the healing of the one afflicted with tzara'at. The healing by YahShua is paradoxical, since anyone who touches someone afflicted with tzara'at became (ritually) unclean themselves, and yet we know that YahShua was entirely without sin or impurity. He alone is the Healer of our uncleanness before Yahweh, and through His touch we are made acceptable for true spiritual worship. Thank the Elohim of Israel! YahShua visits and heals us outside the camp!
 
-In summary, the Tazria Parasha covers the purification rituals for women after childbirth and provides regulations for identifying and handling various skin conditions, including the concept of ritual impurity associated with leprosy. The Haftarah portion connects with the theme of miraculous healings in the time of Elisha, and the Brit Chadashah reading highlights the early events in the life of Yahshua.
+In summary, Tazria underscores the importance of ritual purity and provides a framework for identifying, managing, and resolving conditions that disrupt this purity, with connections drawn to themes of healing and divine fulfillment in the Haftarah and Brit Chadashah readings.
 '''),
   Parasha(
       name: 'Metzora (Infected One)',
       torah: 'Leviticus 14:1 - 15:33',
       haftarah: 'II Kings 7:3-20',
-      britChadashah: 'Luke 17:11-37',
+      britChadashah: 'Mattew 8: 1-17',
       summary: '''
 Summary of Metzora (Leviticus 14:1 - 15:33)
 
@@ -1083,7 +1083,7 @@ The Haftarah portion from 2 Kings 7:3-20 narrates the account of four lepers out
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Luke 17:11-37 includes accounts of Yahshua healing ten lepers, emphasizing the importance of gratitude and faith. Yahshua also speaks about the coming of the kingdom of Yahweh and the need for readiness.
+The Brit Chadashah reading for Metzora reference several miracles that the Mashiach YahShua performed during His first visitation, including the healing of a leper. Matthew connects the healing ministry of YahShua as the fulfillment of what was spoken by the prophet Isaiah: "He took our illnesses and bore our diseases" (Isaiah 53:4). Many of us are in various states of denial regarding our own sinful condition and need for deliverance, which can be illustrated by the case of the 
 
 In summary, the Metzora Parasha details the purification rituals for individuals healed from skin conditions and addresses laws related to ritual impurity caused by bodily discharges. The Haftarah portion connects with the theme of leprosy and Yahweh's deliverance in the time of Elisha, and the Brit Chadashah reading highlights Yahshua's healing ministry and teachings about gratitude and the kingdom of Yahweh.
 '''),
@@ -1113,11 +1113,11 @@ Forbidden Practices and Holiness Code: The Parasha outlines various forbidden pr
 
 Haftarah:
 
-The Haftarah portion from Ezekiel 22:1-19 features Ezekiel's rebuke of the people of Jerusalem for their sins, including idolatry, shedding of blood, and other immoral actions.
+The Haftarah reading from Ezekiel 22 indicts Israel for failing to obey the Torah of Moses and consequently invokes the judgment of Yahweh, which includes the Diaspora of the Jewish people: "I will scatter you among the nations and disperse you through the countries, and I will consume your uncleanness out of you. And you shall be profaned by your own doing in the sight of the nations, and you shall know that I am Yahweh." Notice, however, that the purpose of the Diaspora is to "consume the uncleanness" out of the Jewish people, and therefore is ultimately restorative.
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Hebrews 9:11-28 draws parallels between the Yom Kippur rituals and the atoning work of YahShua as the High Priest who entered the heavenly Holy of Holies with His own blood, providing eternal redemption.
+The Brit Chadashah reading tells us that the Mashiach Yahshua appeared as the High Priest (Kohen Gadol) of the true tabernacle (of which the earthly tabernacle was merely a shadow) and there offered His own blood to secure eternal redemption for those who are trusting in Him. Yahshua did this by dying on the stake and shedding His blood as the perfect sacrificial victim for the penalty of sins committed under the Torah of Moses. In the first covenant (i.e., the Torah of Moses), innocent sacrificial victims had to be killed in order to benefit from their death. This is most evident in the Yom Kippur ceremony where the sins of the nation were covered by the "blood of bulls and goats" for the previous year's sins. But this ritual, like the others instituted in the earthly tabernacle, foreshadowed the coming Substance that was prophesied (Hebrews 8:5). 
 
 In summary, the Acharei Mot Parasha addresses the significant Yom Kippur rituals for atonement, emphasizes the sanctity of blood, and provides additional laws regarding sexual relationships and forbidden practices. The Haftarah portion connects with Ezekiel's rebuke of Jerusalem's sins, and the Brit Chadashah reading underscores the fulfillment of the atonement through the work of YahShua.
 '''),
@@ -1125,7 +1125,7 @@ In summary, the Acharei Mot Parasha addresses the significant Yom Kippur rituals
       name: 'Kedoshim (Holy Ones)',
       torah: 'Leviticus 19:1 - 20:27',
       haftarah: 'Amos 9:7-15',
-      britChadashah: 'Matthew 22:34-23:39',
+      britChadashah: '1 Pet. 1:13-16',
       summary: '''
 Summary of Kedoshim (Leviticus 19:1 - 20:27)
 
@@ -1155,7 +1155,7 @@ The Haftarah portion from Amos 9:7-15 includes Amos' vision of Yahweh's future r
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Matthew 22:34-23:39 includes Yahshua's teachings on the greatest commandments, warnings against hypocrisy, and lamentations over Jerusalem's rejection of Him.
+The Brit Chadashah reading from 1 Pet. 1:13-16 repeats the call to holiness. In the passage from 1 Peter, the call to holiness is predicated upon the "hope that will be brought to you" at the revelation of Yahshua at the end of days, and in the 1 Corinthians reading, Paul outlines the same moral constraints that mark a called out people of Yahweh.  Believers in Mashiach are to be free from the sin that pervades surrounding culture, and in particular free from sexual immorality, which is actually idolatry.
 
 In summary, the Kedoshim Parasha emphasizes the call to holiness, ethical living, and moral conduct. It covers a wide range of topics, including relationships, fairness, and prohibitions against idolatry. The Haftarah portion provides a vision of Yahweh's future restoration, and the Brit Chadashah reading features Yahshua's teachings on love and righteousness.
 '''),
@@ -1163,7 +1163,7 @@ In summary, the Kedoshim Parasha emphasizes the call to holiness, ethical living
       name: 'Emor (Speak)',
       torah: 'Leviticus 21:1 - 24:23',
       haftarah: 'Ezekiel 44:15-31',
-      britChadashah: 'Matthew 5:38-42',
+      britChadashah: '1 Peter 2:4–10',
       summary: '''
 Summary of Emor (Leviticus 21:1 - 24:23)
 
@@ -1187,11 +1187,11 @@ The Shabbatical Year and the Year of Jubilee: Instructions are given regarding t
 
 Haftarah:
 
-The Haftarah portion from Ezekiel 44:15-31 features Ezekiel's vision of the future Temple, with special attention to the roles and responsibilities of the Levitical priests.
+The Haftarah portion from Ezekiel 44:15-31 features Ezekiel encourages the exiled Jewish people by foretelling the glory of the future Temple that will be built after the Final Redemption, during the 1,000-year Kingdom of Zion. Interestingly, the priests of the Millennial Temple are called benei Tzaddok,  In the Haftarah for sons of righteousness," who kept the charge of Yahweh's sanctuary when the Levites and the people of Israel went astray. It is these benei Tzaddok who shall come near to Yahweh to minister to Him during this time, whereas the Levites will be forbidden to enter the Holy Place. Moreover, since Yom Kippur has been fulfilled, each of these priests will dress and function as a High Priest unto Yahweh, and the sacrificial system will be implemented so that Israel can commemorate the atoning sacrifice of Yahshua as their Savior and true King.
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Matthew 5:38-42 includes Yahshua's teachings on turning the other cheek, going the extra mile, and responding to evil with kindness and generosity.
+The Mashiach Yahshua is the Stone which was rejected but has become the Cornerstone (Psalm 118:22). Whoever believes in him will not be put to shame. The Brit Chadashah passage comes from the Apostle Peter who states that the believer in the Mashiach Yahshua is made part of the living Temple of Yahweh, made part of a holy priesthood to offer "spiritual sacrifices" acceptable to Yahweh; The believer is now chosen by Yahweh to be 'am segulah' a treasured people - called out to proclaim the greatness of Yahweh who delivered him from darkness to light. Peter concludes by directly applying Hosea 2:23 to the believers: "Once you were not a people, but now you are Elohim's people; once you had not received mercy, but now you have received mercy
 
 In summary, the Emor Parasha covers regulations for the holiness of priests, details of the festivals, laws of justice, and the importance of respecting Yahweh's name. The Haftarah portion connects with Ezekiel's vision of the future Temple, and the Brit Chadashah reading highlights Yahshua's teachings on responding to others with love and generosity.
 '''),
@@ -1221,11 +1221,11 @@ The Shabbatical and Jubilee Cycles: The Shabbatical and Jubilee cycles serve as 
 
 Haftarah:
 
-The Haftarah portion from Jeremiah 32:6-27 features the story of Jeremiah redeeming a piece of land during a time of siege. This act serves as a symbolic gesture of hope and restoration, reflecting the themes of the Behar Parasha.
+The haftarah portion of Behar concerns the redemption of some land by Jeremiah the prophet, just before the Babylonian army (Kasdim) was poised to strike and destroy Judah. By faith Jeremiah paid the redemption price and performed the transaction before the leaders of Judah to attest to the word of Yahweh that one day the Jews would return to the land and rebuild it: "There will again be buying of homes and fields and vineyards in this Land," for nothing is too difficult for the Elohim of Israel.
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Luke 4:16-30 recounts Yahshua's visit to the synagogue in Nazareth, where He reads from the scroll of Isaiah, declaring the fulfillment of the Scriptures in Him. The people's initial response turns to rejection, illustrating the rejection of Yahweh's message by the people.
+The forgiveness of debts and return of slaves on Yovel is called the "Jubilee Release." The Brit Chadashah portion reveals that Yahshua the Mashiach was sent to set the captives free by releasing them from their slavery to sin. Yahshua read these words during an aliyah He performed at the synagogue: "The Spirit of Yahweh is upon me because he has anointed me to proclaim good news to the poor. He has sent me to proclaim liberty to the captives and recovering of sight to the blind, to set at liberty those who are oppressed, to proclaim the year of Yahweh's favor." (Luke 4:18-19). Yeshua then stated "Today this Scripture has been fulfilled in your hearing," indicating that He was the Substance of which the ritual was merely a type.
 
 In summary, the Behar Parasha emphasizes the importance of observing the Shabbatical and Jubilee years, fair treatment of fellow Israelites, and the consequences of obedience and disobedience. The Haftarah portion connects with the theme of redeeming land in Jeremiah, and the Brit Chadashah reading highlights Yahshua's proclamation of fulfillment and the mixed response from the people.
 '''),
@@ -1233,7 +1233,7 @@ In summary, the Behar Parasha emphasizes the importance of observing the Shabbat
       name: 'Bechukotai (In My Statutes)',
       torah: 'Leviticus 26:3 - 27:34',
       haftarah: 'Jeremiah 16:19-17:14',
-      britChadashah: 'John 14:15-21',
+      britChadashah: 'Matt. 21:33-46',
       summary: '''
 Summary of Bechukotai (Leviticus 26:3 - 27:34)
 
@@ -1259,15 +1259,13 @@ The Haftarah portion from Jeremiah 16:19-17:14 includes Jeremiah's lament over t
 
 Brit Chadashah:
 
-The Brit Chadashah reading from John 14:15-21 features Yahshua's promise of the Holy Spirit to those who love and obey Him. This promise signifies a new covenant relationship with Yahweh through the indwelling of the Holy Spirit.
-
-In summary, the Bechukotai Parasha underscores the consequences of obedience and disobedience to Yahweh's commandments, with a focus on blessings, curses, and the possibility of repentance and restoration. The Haftarah portion connects with Jeremiah's reflections, and the Brit Chadashah reading highlights Yahshua's promise of the Holy Spirit and the new covenant relationship with believers.
+The reading from Matthew's gospel concerns the "parable of the tenants." the parable can equally be understood as a sober warning for those who merely profess faith in the Messiah as well.  Yahshua is likewise a master of a house who planted a vineyard and left for another country, and one day he will return to take account of those servants to whom he entrusted his vineyard... Those who are imposters in his service will ultimately be rejected from the Kingdom of Yahweh.
 '''),
   Parasha(
       name: 'Bamidbar (In the Wilderness)',
       torah: 'Numbers 1:1 - 4:20',
       haftarah: 'Hosea 2:1-22',
-      britChadashah: 'Luke 2:1-7',
+      britChadashah: '1 Corinthians 12:12–20',
       summary: '''
 Summary of Bamidbar (Numbers 1:1 - 4:20)
 
@@ -1291,15 +1289,15 @@ The Haftarah portion from Hosea 2:1-22 features Hosea's metaphorical depiction o
 
 Brit Chadashah:
 
-The Brit Chadashah reading from Luke 2:1-7 narrates the account of the census during the time of Caesar Augustus, leading to Joseph and Mary's journey to Bethlehem. It culminates in the birth of Yahshua in a humble setting, mirroring the journey and encampment motifs from the Torah.
+The Brit Chadashah reading from 1 Corinthians emphasizes the concept of the Body of Yahweh, where believers are compared to different parts of a body, each with its own function and importance. This portion stresses unity within the community of believers, with Yahshua as the head of the body.
 
-In summary, the Bamidbar Parasha marks the beginning of the book of Numbers, focusing on the organization of the Israelites for their journey through the wilderness. The census, duties of the Levites, and the arrangement of the camp all contribute to the orderly preparation for the journey. The Haftarah portion connects with Hosea's metaphor, and the Brit Chadashah reading introduces the birth of Yahshua in the context of a journey.
+In summary, the Parasha Bemidbar focuses on the organization and preparation of the Israelites for their journey through the wilderness. It details the census of the tribes, the arrangement of the camp around the Tabernacle, the duties of the Levites, and regulations for maintaining purity and holiness. The Haftarah and Brit Chadashah portions complement this theme with prophecies of restoration and unity among Yahweh's people, highlighting the spiritual significance of the community and their relationship with Yahweh.
 '''),
   Parasha(
       name: 'Naso (Elevate)',
       torah: 'Numbers 4:21 - 7:89',
       haftarah: 'Judges 13:2-25',
-      britChadashah: 'John 7:53-8:11',
+      britChadashah: 'Acts 21:17–26',
       summary: '''
 Summary of Naso (Numbers 4:21 - 7:89)
 
@@ -1325,7 +1323,7 @@ The Haftarah portion from Judges 13:2-25 recounts the angelic announcement of th
 
 Brit Chadashah:
 
-The Brit Chadashah reading from John 7:53-8:11 narrates the story of the woman caught in adultery, where Yahshua displays mercy and challenges the accusers to examine their own hearts before passing judgment.
+The Brit Chadashah reading shows the Apostle Paul arriving in Jerusalem to visit James, the half-brother of the Yahshua, and leader of the synagogue that Yahshua Himself started; James and the elders listened as Paul told them about his missionary activity among the Gentiles, but they felt compelled to have Paul join four others in a Nazirite vow and to pay for their expenses (i.e., the sacrifices commanded in the Torah). By so doing, Paul would demonstrate to the Jews that he was indeed Torah observant and not teaching anything contrary to the law of Moses. As for the Gentiles who had believed, James and the elders reaffirmed their previous instruction that they (minimally) abide by the Noahide laws to be members of Yahshua's movement - that is, without becoming full Jews (i.e., undergoing ritual circumcision and becoming obligated to keep the mitzvot of the Torah). 
 
 In summary, the Naso Parasha covers the duties of the Levites, purification and dedication rituals, offerings from tribal leaders, the Nazirite vow, the priestly blessing, and the dedication of the Tabernacle. The Haftarah portion relates to the dedication theme with the birth of Samson, and the Brit Chadashah reading highlights Yahshua's merciful response to judgmental attitudes.
 '''),

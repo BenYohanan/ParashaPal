@@ -123,10 +123,19 @@ class Helper {
     var endTime = complexZmanimCalendar.getShabbosExitTime();
     var lightingTime =
         '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
-
-    var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
+    if (parasha.isEmpty) {
+      var parashaObject = new Parasha(
+        name: events.first,
+        torah: events.first,
+        haftarah: events.first,
+        britChadashah: events.first,
+      );
+      provider.updateParasha(parashaObject);
+    } else {
+      var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
+      provider.updateParasha(weeklyParasha);
+    }
     provider.updateLightingTime(lightingTime);
-    provider.updateParasha(weeklyParasha);
 
     var storedVerseOfTheDay = provider.getVerseOfTheDay;
     if (storedVerseOfTheDay.message!.isEmpty) {
@@ -227,7 +236,7 @@ class Helper {
     "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control; against such things there is no law. (Galatians 5:22-23)",
     "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff, they comfort me. (Tehillim 23:4)",
     "Let not your hearts be troubled. Believe in Yahweh; believe also in me. (Yochanan 14:1)",
-    "May Yahweh of hope fill you with all joy and peace in believing, so that by the power of the Ruach Ka-Kodesh you may abound in hope. (Romans 15:13)",
+    "May Yahweh of hope fill you with all joy and peace in believing, so that by the power of the Ruach Ha-Kodesh you may abound in hope. (Romans 15:13)",
     "He will wipe away every tear from their eyes, and death shall be no more, neither shall there be mourning, nor crying, nor pain anymore, for the former things have passed away. (Revelation 21:4)",
   ];
 }

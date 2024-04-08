@@ -1,1 +1,1 @@
-enum NavBarMenuState { home, bible, siddur, parasha }
+enum NavBarMenuState { home, calendar, siddur, parasha, blessings }

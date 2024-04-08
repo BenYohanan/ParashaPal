@@ -6,6 +6,7 @@ import 'package:pocket_siddur/screens/siddur/siddurScreen.dart';
 
 import '../../../enum.dart';
 import '../../../size_config.dart';
+import '../../blessing/blessingScreen.dart';
 import '../../parasha/parashaScreen.dart';
 
 class CustomBottomBar extends StatefulWidget {
@@ -93,19 +94,31 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           ),
           // buildNavBarItem(
           //   icon: SvgPicture.asset(
-          //     "assets/icons/torah_scroll.svg",
+          //     "assets/icons/calendar.svg",
           //     height: 20,
           //     width: 20,
-          //     color: NavBarMenuState.bible == widget.selectedMenu
+          //     color: NavBarMenuState.calendar == widget.selectedMenu
           //         ? darkGrey
           //         : inActiveIconColor,
           //   ),
-          //   label: 'Bible',
-          //   onTap: () => Navigator.pushNamed(
-          //     context,
-          //     BibleView.routeName,
-          //   ),
+          //   label: 'Calendar',
+          //   onTap: () {},
           // ),
+          buildNavBarItem(
+            icon: SvgPicture.asset(
+              "assets/icons/blessings.svg",
+              height: 20,
+              width: 20,
+              color: NavBarMenuState.blessings == widget.selectedMenu
+                  ? darkGrey
+                  : inActiveIconColor,
+            ),
+            label: 'Blessings',
+            onTap: () => Navigator.pushNamed(
+              context,
+              BlessingScreen.routeName,
+            ),
+          ),
         ],
       ),
     );
