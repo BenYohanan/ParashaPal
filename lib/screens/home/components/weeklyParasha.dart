@@ -200,51 +200,52 @@ class _WeeklyParashahState extends ConsumerState<WeeklyParashah> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 16.0,
-                right: 16.0,
-                left: 16.0,
+            if (parasha.name != "Sukkot" && parasha.name != "Pesach")
+              Container(
+                padding: EdgeInsets.only(
+                  top: 16.0,
+                  right: 16.0,
+                  left: 16.0,
+                ),
+                height: getProportionateScreenHeight(110),
+                width: getProportionateScreenWidth(300),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(255, 81, 78, 78),
+                      offset: Offset(0, 3),
+                      blurRadius: 10.0,
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(9.0),
+                ),
+                child: Column(
+                  children: [
+                    ShabbathCard(
+                      'Weekly Reading',
+                      getProportionateScreenHeight(18),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DisplayReading(
+                          "Torah: ",
+                          parasha.torah,
+                        ),
+                        DisplayReading(
+                          "Haftarah: ",
+                          parasha.haftarah,
+                        ),
+                        DisplayReading(
+                          "Brit Chadasha: ",
+                          parasha.britChadashah,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              height: getProportionateScreenHeight(110),
-              width: getProportionateScreenWidth(300),
-              decoration: BoxDecoration(
-                color: primaryColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 81, 78, 78),
-                    offset: Offset(0, 3),
-                    blurRadius: 10.0,
-                  )
-                ],
-                borderRadius: BorderRadius.circular(9.0),
-              ),
-              child: Column(
-                children: [
-                  ShabbathCard(
-                    'Weekly Reading',
-                    getProportionateScreenHeight(18),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DisplayReading(
-                        "Torah: ",
-                        parasha.torah,
-                      ),
-                      DisplayReading(
-                        "Haftarah: ",
-                        parasha.haftarah,
-                      ),
-                      DisplayReading(
-                        "Brit Chadasha: ",
-                        parasha.britChadashah,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
           ],
         );
       },

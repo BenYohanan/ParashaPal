@@ -37,7 +37,6 @@ void main() async {
   });
 }
 
-
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -56,7 +55,7 @@ class MyApp extends ConsumerWidget {
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaleFactor: 1.0,
+            textScaler: TextScaler.linear(1.0),
           ),
           child: child!,
         );

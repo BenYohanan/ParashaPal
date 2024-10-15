@@ -169,9 +169,37 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     var lightingTime =
         '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
 
-    var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
+    var dayOfMonth = jewishDate.getJewishDayOfMonth();
+    var month = jewishDate.getJewishMonth();
+
+    if (month == 7) {
+      if (dayOfMonth >= 11 && dayOfMonth <= 21) {
+        // Immediately after yom kippur to the week of Sukkot (from 15th to 21st of Tishrei)
+        provider.updateParasha(Parasha(
+          name: 'Sukkot',
+          torah: '',
+          haftarah: '',
+          britChadashah: '',
+          summary: '',
+        ));
+      }
+    } else if (month == 1) {
+      if (dayOfMonth >= 15 && dayOfMonth <= 21) {
+        // If it's the week of Pesach (from 15th to 21st of Abib)
+        provider.updateParasha(Parasha(
+          name: 'Pesach',
+          torah: '',
+          haftarah: '',
+          britChadashah: '',
+          summary: '',
+        ));
+      }
+    } else {
+      // If it's not during Sukkot or Pesach, update with the regular weekly Parasha
+      var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
+      provider.updateParasha(weeklyParasha);
+    }
     provider.updateLightingTime(lightingTime);
-    provider.updateParasha(weeklyParasha);
 
     //Get and update verse of the day
     List<String> _verses = Helper().bibleVerses;

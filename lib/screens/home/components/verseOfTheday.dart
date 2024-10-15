@@ -1,4 +1,4 @@
-import 'package:canton_ui/canton_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pocket_siddur/app_properties.dart';
 import 'package:pocket_siddur/helpers/home_screen_details.dart';
@@ -12,24 +12,22 @@ class VerseOfTheDayCard extends ConsumerStatefulWidget {
 
 class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
   DateTime lastUpdate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     var provider = ref.read(providerServiceProvider.notifier);
+    
     Color bgColor() {
-      if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-        return CantonDarkColors.gray[800]!;
-      }
-      return CantonColors.gray[300]!;
+      // Use Material Theme's brightness to determine the background color
+      return Theme.of(context).brightness == Brightness.dark ? Colors.grey[800]! : Colors.grey[300]!;
     }
 
     return Container(
       width: getProportionateScreenWidth(350),
-      padding: EdgeInsets.all(
-        getProportionateScreenHeight(15),
-      ),
+      padding: EdgeInsets.all(getProportionateScreenHeight(15)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: CantonMethods.alternateCanvasColorType3(context),
+        color: Theme.of(context).canvasColor, // Use Material theme's canvas color
       ),
       child: Column(
         children: [
@@ -42,13 +40,9 @@ class _VerseOfTheDayCardState extends ConsumerState<VerseOfTheDayCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _header(context, bgColor()),
-                    SizedBox(
-                      height: getProportionateScreenHeight(5),
-                    ),
+                    SizedBox(height: getProportionateScreenHeight(5)),
                     _body(context, bgColor(), provider),
-                    SizedBox(
-                      height: getProportionateScreenHeight(5),
-                    ),
+                    SizedBox(height: getProportionateScreenHeight(5)),
                     _bookChapterVerse(context, provider),
                   ],
                 ),

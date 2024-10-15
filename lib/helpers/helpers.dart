@@ -28,7 +28,7 @@ class Helper {
     BuildContext context,
     String message, {
     Color color = primaryColor,
-    String subject = "Parashah Summary",
+    String subject = "Parasha Summary",
   }) {
     return Container(
       child: GestureDetector(
@@ -123,15 +123,34 @@ class Helper {
     var endTime = complexZmanimCalendar.getShabbosExitTime();
     var lightingTime =
         '${DateFormat.E().addPattern('jm').format(startTime)} - ${DateFormat.E().addPattern('jm').format(endTime)}';
-    if (parasha.isEmpty) {
-      var parashaObject = new Parasha(
-        name: events.first,
-        torah: events.first,
-        haftarah: events.first,
-        britChadashah: events.first,
-      );
-      provider.updateParasha(parashaObject);
+
+    var dayOfMonth = jewishDate.getJewishDayOfMonth();
+    var month = jewishDate.getJewishMonth();
+
+    if (month == 7) {
+      if (dayOfMonth >= 11 && dayOfMonth <= 21) {
+        // Immediately after yom kippur to the week of Sukkot (from 15th to 21st of Tishrei)
+        provider.updateParasha(Parasha(
+          name: 'Sukkot',
+          torah: '',
+          haftarah: '',
+          britChadashah: '',
+          summary: '',
+        ));
+      }
+    } else if (month == 1) {
+      if (dayOfMonth >= 15 && dayOfMonth <= 21) {
+        // If it's the week of Pesach (from 15th to 21st of Abib)
+        provider.updateParasha(Parasha(
+          name: 'Pesach',
+          torah: '',
+          haftarah: '',
+          britChadashah: '',
+          summary: '',
+        ));
+      }
     } else {
+      // If it's not during Sukkot or Pesach, update with the regular weekly Parasha
       var weeklyParasha = parashot.where((x) => x.name.contains(parasha)).first;
       provider.updateParasha(weeklyParasha);
     }
@@ -158,16 +177,16 @@ class Helper {
   }
 
   List<String> preparationDayNotificationTextOptions = [
-    "TYIF!\n\n It's Friday morning, a day of preparation. Get ready for a peaceful and blessed Shabbath!\n\n Happy Preparation Day From Parashah Pal",
-    "TYIF!\n\n Friday morning is here, time to prepare for a joyous and restful Shabbath.\n\n Happy Preparation Day From Parashah Pal",
-    "TYIF!\n\n Embrace the morning of preparation for Shabbath. Make it a day of serenity and readiness.\n\n Happy Preparation Day From Parashah Pal",
-    "TYIF!\n\n Friday has arrived. Use this morning to prepare for a meaningful and beautiful Shabbath.\n\n Happy Preparation Day From Parashah Pal",
+    "TYIF!\n\n It's Friday morning, a day of preparation. Get ready for a peaceful and blessed Shabbath!\n\n Happy Preparation Day From Parasha Pal",
+    "TYIF!\n\n Friday morning is here, time to prepare for a joyous and restful Shabbath.\n\n Happy Preparation Day From Parasha Pal",
+    "TYIF!\n\n Embrace the morning of preparation for Shabbath. Make it a day of serenity and readiness.\n\n Happy Preparation Day From Parasha Pal",
+    "TYIF!\n\n Friday has arrived. Use this morning to prepare for a meaningful and beautiful Shabbath.\n\n Happy Preparation Day From Parasha Pal",
   ];
   List<String> shabbathErevNotificationTextOptions = [
-    "Shabbath Erev is approaching. Prepare for a peaceful and joyful Shabbath evening!\n\n Shabbath Shalom From Parashah Pal",
-    "It's almost Shabbath Erev. Take a moment to relax and welcome the sacred Shabbath.\n\n Shabbath Shalom From Parashah Pal",
-    "Get ready for Shabbath Erev. Embrace the serenity of the upcoming Shabbath evening!\n\n Shabbath Shalom From Parashah Pal",
-    "The warmth of Shabbath Erev is upon us. Prepare for a blessed and restful Shabbath.\n\n Shabbath Shalom From Parashah Pal",
+    "Shabbath Erev is approaching. Prepare for a peaceful and joyful Shabbath evening!\n\n Shabbath Shalom From Parasha Pal",
+    "It's almost Shabbath Erev. Take a moment to relax and welcome the sacred Shabbath.\n\n Shabbath Shalom From Parasha Pal",
+    "Get ready for Shabbath Erev. Embrace the serenity of the upcoming Shabbath evening!\n\n Shabbath Shalom From Parasha Pal",
+    "The warmth of Shabbath Erev is upon us. Prepare for a blessed and restful Shabbath.\n\n Shabbath Shalom From Parasha Pal",
   ];
   List<String> dailyNotificationTextOptions = [
     "Start your week with inspiration! Explore the wisdom of the torah and find meaning in your prayers. Have a blessed day!",
